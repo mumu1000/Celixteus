@@ -1,0 +1,182 @@
+# depslib dependency file v1.0
+1584187220 source:/home/arivier/DEVs/Perso/Celixteus/main.cpp
+	<iostream>
+	<string>
+	<vector>
+	<sstream>
+	<chrono>
+	<thread>
+	"allegro5/allegro.h"
+	"allegro5/allegro_color.h"
+	"allegro5/allegro_primitives.h"
+	"allegro5/allegro_font.h"
+	<random>
+	"Existence.h"
+	"ExistenceView.h"
+	"Planet.h"
+	"PlanetView.h"
+	"UniverseView.h"
+	<ctime>
+	"Player.h"
+
+1581109986 source:/home/arivier/DEVs/Perso/Celixteus/src/AbstractDrawer.cpp
+	"AbstractDrawer.h"
+
+1581110237 /home/arivier/DEVs/Perso/Celixteus/include/AbstractDrawer.h
+
+1582289361 source:/home/arivier/DEVs/Perso/Celixteus/src/Planet.cpp
+	"Planet.h"
+
+1582473162 /home/arivier/DEVs/Perso/Celixteus/include/Planet.h
+	<vector>
+	"Tile.h"
+	<iostream>
+	"Player.h"
+
+1582473834 /home/arivier/DEVs/Perso/Celixteus/include/Tile.h
+	<iostream>
+	"AbstractTilePlaceable.h"
+	"Player.h"
+
+1582476388 source:/home/arivier/DEVs/Perso/Celixteus/src/Tile.cpp
+	"Tile.h"
+	"TileMiner.h"
+
+1581115627 source:/home/arivier/DEVs/Perso/Celixteus/src/AbstractView.cpp
+	"AbstractView.h"
+
+1581115585 /home/arivier/DEVs/Perso/Celixteus/include/AbstractView.h
+
+1581114517 /home/arivier/DEVs/Perso/Celixteus/include/PlanetView.h
+	"AbstractView.h"
+	"Planet.h"
+	<iostream>
+
+1581114665 source:/home/arivier/DEVs/Perso/Celixteus/src/PlanetView.cpp
+	"PlanetView.h"
+
+1582472299 source:/home/arivier/DEVs/Perso/Celixteus/src/AbstractTilePlaceable.cpp
+	"AbstractTilePlaceable.h"
+
+1582476339 /home/arivier/DEVs/Perso/Celixteus/include/AbstractTilePlaceable.h
+	"Tile.h"
+	"Planet.h"
+	"SolarSys.h"
+	"Galaxy.h"
+	"Cluster.h"
+	"SuperCluster.h"
+	"Universe.h"
+
+1582470426 /home/arivier/DEVs/Perso/Celixteus/include/Player.h
+
+1582470388 source:/home/arivier/DEVs/Perso/Celixteus/src/Player.cpp
+	"Player.h"
+	<iostream>
+
+1582476226 source:/home/arivier/DEVs/Perso/Celixteus/src/TileMiner.cpp
+	"TileMiner.h"
+	"Tile.h"
+
+1582476409 /home/arivier/DEVs/Perso/Celixteus/include/TileMiner.h
+	"AbstractTilePlaceable.h"
+
+1582329060 source:/home/arivier/DEVs/Perso/Celixteus/src/SolarSys.cpp
+	"SolarSys.h"
+
+1582473130 /home/arivier/DEVs/Perso/Celixteus/include/SolarSys.h
+	<vector>
+	"Planet.h"
+
+1582141689 source:/home/arivier/DEVs/Perso/Celixteus/src/SolarSysView.cpp
+	"SolarSysView.h"
+
+1582140479 /home/arivier/DEVs/Perso/Celixteus/include/SolarSysView.h
+	<AbstractView.h>
+	"SolarSys.h"
+
+1582473141 /home/arivier/DEVs/Perso/Celixteus/include/Galaxy.h
+	<vector>
+	"SolarSys.h"
+
+1582143446 /home/arivier/DEVs/Perso/Celixteus/include/GalaxyView.h
+	<AbstractView.h>
+	"Galaxy.h"
+
+1582218043 source:/home/arivier/DEVs/Perso/Celixteus/src/Galaxy.cpp
+	"Galaxy.h"
+
+1582143446 source:/home/arivier/DEVs/Perso/Celixteus/src/GalaxyView.cpp
+	"GalaxyView.h"
+
+1582218083 source:/home/arivier/DEVs/Perso/Celixteus/src/SuperCluster.cpp
+	"SuperCluster.h"
+
+1582473105 /home/arivier/DEVs/Perso/Celixteus/include/SuperCluster.h
+	<vector>
+	"Cluster.h"
+
+1582218006 source:/home/arivier/DEVs/Perso/Celixteus/src/Cluster.cpp
+	"Cluster.h"
+
+1582473116 /home/arivier/DEVs/Perso/Celixteus/include/Cluster.h
+	<vector>
+	"Galaxy.h"
+
+1582192356 source:/home/arivier/DEVs/Perso/Celixteus/src/ClusterView.cpp
+	"ClusterView.h"
+
+1582192357 /home/arivier/DEVs/Perso/Celixteus/include/ClusterView.h
+	<AbstractView.h>
+	"Cluster.h"
+
+1582191912 source:/home/arivier/DEVs/Perso/Celixteus/src/SuperClusterView.cpp
+	"SuperClusterView.h"
+
+1582191914 /home/arivier/DEVs/Perso/Celixteus/include/SuperClusterView.h
+	<AbstractView.h>
+	"SuperCluster.h"
+
+1582195326 source:/home/arivier/DEVs/Perso/Celixteus/src/UniverseView.cpp
+	"UniverseView.h"
+
+1582195326 /home/arivier/DEVs/Perso/Celixteus/include/UniverseView.h
+	<AbstractView.h>
+	"Universe.h"
+
+1582473151 /home/arivier/DEVs/Perso/Celixteus/include/Universe.h
+	<vector>
+	"SuperCluster.h"
+
+1582473229 source:/home/arivier/DEVs/Perso/Celixteus/src/Universe.cpp
+	"Universe.h"
+
+1582287195 source:/home/arivier/DEVs/Perso/Celixteus/src/Existence.cpp
+	"Existence.h"
+
+1582313275 /home/arivier/DEVs/Perso/Celixteus/include/Existence.h
+	<vector>
+	"Universe.h"
+
+1582198473 source:/home/arivier/DEVs/Perso/Celixteus/src/ExistenceView.cpp
+	"ExistenceView.h"
+
+1582198473 /home/arivier/DEVs/Perso/Celixteus/include/ExistenceView.h
+	<AbstractView.h>
+	"Existence.h"
+
+1582458400 source:/home/arivier/DEVs/Perso/Celixteus/src/Bonus.cpp
+	"Bonus.h"
+
+1582469896 /home/arivier/DEVs/Perso/Celixteus/include/Bonus.h
+
+1582458439 source:/home/arivier/DEVs/Perso/Celixteus/src/PlayerBonus.cpp
+	"PlayerBonus.h"
+
+1584185531 /home/arivier/DEVs/Perso/Celixteus/include/PlayerBonus.h
+	<Bonus.h>
+
+1582470388 source:/home/arivier/DEVs/Perso/Celixteus/src/PlayerPresence.cpp
+	"PlayerPresence.h"
+
+1582470426 /home/arivier/DEVs/Perso/Celixteus/include/PlayerPresence.h
+

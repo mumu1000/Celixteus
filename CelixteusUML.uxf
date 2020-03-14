@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?><diagram program="umlet" version="13.3">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>329</x>
+      <y>63</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Player
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>91</x>
+      <y>196</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>AbstractView
+--
+draw()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>483</x>
+      <y>196</y>
+      <w>161</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Planet
+--
+draw()
+update()
+collect()
+generate()
+--
+m_owner
+m_tileList
+m_solarSys</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>665</x>
+      <y>196</y>
+      <w>161</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Tile
+--
+draw()
+update()
+collect()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>196</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>PlanetView
+--
+draw()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1029</x>
+      <y>196</y>
+      <w>161</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>TileMiner
+--
+maxLevel
+
+--
+draw()
+update()
+collect()
+upgrade()
+--
+m_ccBonus
+m_prodLevel
+m_storLevel
+m_specLevel
+m_mineralsProd
+m_lastUpdate
+m_mineralsStored
+m_mineralCap
+m_hasCrystal
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>854</x>
+      <y>196</y>
+      <w>161</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>AbstractTilePlaceable
+--
+draw()
+update()
+collect()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>112</x>
+      <y>63</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>main
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>483</x>
+      <y>315</y>
+      <w>161</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>SolarSys
+--
+update()
+collect()
+generate()
+--
+m_planetList
+m_galaxy</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>483</x>
+      <y>406</y>
+      <w>161</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Galaxy
+--
+update()
+collect()
+generate()
+--
+m_solarSysList
+m_cluster</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>483</x>
+      <y>497</y>
+      <w>161</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Cluster
+--
+update()
+collect()
+generate()
+--
+m_galaxy_list
+m_superClust</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>483</x>
+      <y>588</y>
+      <w>161</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>SuperClust
+--
+update()
+collect()
+generate()
+--
+m_clusterList
+m_universe</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>483</x>
+      <y>686</y>
+      <w>161</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Universe
+--
+update()
+collect()
+generate()
+--
+m_superClustList
+m_existence</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>315</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>SolarSysView
+--
+draw()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>406</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>GalaxyView
+--
+draw()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>497</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>ClusterView
+--
+draw()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>588</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>SuperClustView
+--
+draw()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>686</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>UniverseView
+--
+draw()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>532</x>
+      <y>63</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Effect
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>483</x>
+      <y>777</y>
+      <w>161</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Existence
+--
+
+--
+m_universeList</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>777</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>ExistenceView
+--
+draw()</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
