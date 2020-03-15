@@ -2,6 +2,7 @@
 #define TESTGUI_H
 #include <vector>
 #include <string>
+#include <unordered_map>
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_color.h"
 #include "allegro5/allegro_primitives.h"
@@ -15,9 +16,9 @@ namespace TestGUI
     ALLEGRO_FONT* basicFont;
     ALLEGRO_COLOR basicTextColor;
     ALLEGRO_EVENT_QUEUE* keyboardEventQueue;
-    std::vector<int>* keyConfig;
-    std::vector<std::string>* keyNames;
+    std::unordered_map<std::string, int>* keyConfig;
     unsigned int fontHeight;
+    int waitKeyPress();
 }
 
 

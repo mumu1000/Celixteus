@@ -10,15 +10,39 @@
 unsigned int TestGUI::menu(std::vector<std::string>& options)
 {
     using namespace TestGUI;
+    int lastKey;
     unsigned int current = 0;
-    unsigned int maxperscreen = (DISPLAY_HEIGHT-10) / (fontHeight * 1.4);
+    unsigned int maxperscreen = (DISPLAY_HEIGHT-40) / (fontHeight * 1.4);
     unsigned int lbegin = current - (current%maxperscreen);
     unsigned int lend = maxperscreen + current - (current%maxperscreen);
-    al_clear_to_color(al_map_rgb(0,0,20));
-    for (unsigned int i = lbegin; i<options.size() || i<lend ;i++)
-    {
-        al_draw_text(basicFont,basicTextColor, 5, 5+(i*fontHeight * 1.4), 0,const_cast<char*>(options[i].c_str()));
-    }
+    do {
+        al_clear_to_color(al_map_rgb(0,0,20));
+        for (unsigned int i = lbegin; i<options.size() && i<lend ;i++)
+        {
+            if (i == current) {al_draw_filled_circle(5,(20+(fontHeight/2)+(i*fontHeight * 1.4)),5,basicTextColor);}
+            al_draw_text(basicFont,basicTextColor, 20, 20+(i*fontHeight * 1.4), 0,options[i].c_str());
+        }
+        al_flip_display();
+        lastKey = waitKeyPress();
+        if (lastKey == keyConfig->find("UP")->second)
+        {
+            if (current == 0)
+            {
+                current = options.size();
+            }
+            current--;
+        }
+        if (lastKey == keyConfig->find("DOWN")->second)
+        {
+            current++;
+            if (current == options.size())
+            {
+                current = 0;
+            }
+
+        }
+    }while(lastKey != keyConfig->find("VALIDATE")->second );
+    return current;
 }
 
 bool TestGUI::initialize()
@@ -47,26 +71,24 @@ bool TestGUI::initialize()
     al_set_new_display_flags(ALLEGRO_FRAMELESS);
     alConcreteDisplay = al_create_display(DISPLAY_WIDTH,DISPLAY_HEIGHT);
 
-    keyNames = new std::vector<std::string>;
-    keyConfig = new std::vector<int>;
+    keyConfig = new std::unordered_map<std::string, int>;
 
-    keyNames->push_back(std::string("UP"));
-    keyNames->push_back(std::string("DOWN"));
-    keyNames->push_back(std::string("VALIDATE"));
+    (*keyConfig)["UP"] = 0;
+    (*keyConfig)["DOWN"] = 0;
+    (*keyConfig)["VALIDATE"] = 0;
 
 
-    for(unsigned int i = 0;i<keyNames->size();i++)
+    std::unordered_map<std::string, int>::iterator itr;
+    for (itr = (*keyConfig).begin(); itr != (*keyConfig).end(); itr++)
     {
         al_clear_to_color(al_map_rgb(0,0,20));
-        std::cout<<(*keyNames)[i]<<" : ";
-        std::string toBeWritten("Please Input a ::"+(*keyNames)[i]+":: Key.");
+        std::cout << itr->first <<" : ";
+        std::string toBeWritten("Please Input a ::"+ itr->first +":: Key.");
         al_draw_text(basicFont,basicTextColor,20,20,0,&toBeWritten[0]);
         al_flip_display();
-        ALLEGRO_EVENT keyboardEvent;
-        do{al_wait_for_event(keyboardEventQueue,&keyboardEvent);}while( keyboardEvent.type != ALLEGRO_EVENT_KEY_DOWN);
-        keyConfig->push_back(keyboardEvent.keyboard.keycode);
-        std::cout << (*keyConfig)[i] << "  \n";
-        std::cout << "on to the next \n";
+        itr->second = waitKeyPress();
+        std::cout << itr->second << "\n";
+        std::cout << "on to the next\n";
     }
 
     return true;
@@ -79,11 +101,17 @@ bool TestGUI::shutDown()
     al_destroy_font(basicFont);
     al_destroy_event_queue(keyboardEventQueue);
     al_set_target_bitmap(nullptr);
-    delete keyNames;
     delete keyConfig;
     return true;
 }
 
+int TestGUI::waitKeyPress()
+{
+    using namespace TestGUI;
+    ALLEGRO_EVENT keyboardEvent;
+    do{al_wait_for_event(keyboardEventQueue,&keyboardEvent);}while( keyboardEvent.type != ALLEGRO_EVENT_KEY_DOWN);
+    return keyboardEvent.keyboard.keycode;
+}
 
 
 

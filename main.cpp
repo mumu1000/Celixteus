@@ -37,6 +37,13 @@ int main(int argc, char **argv)
 
     TestGUI::initialize();
 
+    std::vector<std::string> choices;
+    choices.push_back("choice 1");
+    choices.push_back("choice 2");
+    choices.push_back("choice 3");
+    choices.push_back("Return");
+    unsigned int menuResult = TestGUI::menu(choices);
+    std::cout << "You chose option " << menuResult << " : " << choices[menuResult] << "\n";
 
     //Player* testPlayer = new Player();
     //Existence* testExistence = new Existence();
@@ -50,7 +57,7 @@ int main(int argc, char **argv)
 
 
 
-    //TestGUI::shutDown();
+    TestGUI::shutDown();
     //al_destroy_display(alConcreteDisplay);
     al_shutdown_primitives_addon();
     al_shutdown_font_addon();
