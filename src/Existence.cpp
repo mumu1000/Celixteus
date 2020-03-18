@@ -1,6 +1,7 @@
 #include "Existence.h"
 #include "Universe.h"
 #include "Player.h"
+#include <iostream>
 //THERE IS STILL SOME SHITTY CONSTANT HERE COMON
 
 Existence::Existence()

@@ -1,5 +1,5 @@
 #include "ClusterView.h"
-
+#include <iostream>
 ClusterView::ClusterView(Cluster* targetCluster)
 {
     m_targetCluster = targetCluster;

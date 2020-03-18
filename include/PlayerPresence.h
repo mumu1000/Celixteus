@@ -1,7 +1,7 @@
 #ifndef PLAYERPRESENCE_H
 #define PLAYERPRESENCE_H
 
-
+class Player;
 class PlayerPresence
 {
     public:

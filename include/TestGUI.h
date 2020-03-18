@@ -9,7 +9,7 @@
 #include "allegro5/allegro_font.h"
 namespace TestGUI
 {
-    unsigned int menu(std::vector<std::string>& options);
+    unsigned int menu(std::vector<std::pair<std::string,unsigned int>>& options);
     void info(std::string& toDisplay);
     bool initialize();
     bool shutDown();

@@ -45,15 +45,10 @@ int main(int argc, char **argv)
     unsigned int menuResult = TestGUI::menu(choices);
     std::cout << "You chose option " << menuResult << " : " << choices[menuResult] << "\n";
 */
-    Player* testPlayer = new Player();
     Existence* testExistence = new Existence();
-
     ExistenceView* testExistenceView = new ExistenceView(testExistence);
-    ExistenceView* voidExistenceView = new ExistenceView(nullptr);
     testExistenceView->draw();
-    voidExistenceView->draw();
     //delete testExistence;
-
 
     TestGUI::shutDown();
     //al_destroy_display(alConcreteDisplay);

@@ -11,3 +11,7 @@ Player::~Player()
 }
 
 
+void Player::registerPlayerPresence(PlayerPresence* playerPresence)
+{
+    m_playerPresenceList.push_back(playerPresence);
+}

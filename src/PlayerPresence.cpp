@@ -2,6 +2,7 @@
 
 PlayerPresence::PlayerPresence()
 {
+    m_pickaxe = 0;
     m_minerals = 15;
     m_mineralCap = 50;
     m_energy = 100;

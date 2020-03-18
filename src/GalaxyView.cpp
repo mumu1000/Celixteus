@@ -1,5 +1,5 @@
 #include "GalaxyView.h"
-
+#include <iostream>
 GalaxyView::GalaxyView(Galaxy* targetGalaxy)
 {
     m_targetGalaxy = targetGalaxy;

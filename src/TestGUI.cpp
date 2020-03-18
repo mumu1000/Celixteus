@@ -7,7 +7,7 @@
 #define DISPLAY_WIDTH 1920
 #define DISPLAY_HEIGHT 1080
 
-unsigned int TestGUI::menu(std::vector<std::string>& options)
+unsigned int TestGUI::menu(std::vector<std::pair<std::string,unsigned int>>& options)
 {
     using namespace TestGUI;
     int lastKey;
@@ -20,7 +20,7 @@ unsigned int TestGUI::menu(std::vector<std::string>& options)
         for (unsigned int i = lbegin; i<options.size() && i<lend ;i++)
         {
             if (i == current) {al_draw_filled_circle(10,(20+(fontHeight/2)+(i*fontHeight * 1.4)),5,basicTextColor);}
-            al_draw_text(basicFont,basicTextColor, 20, 20+(i*fontHeight * 1.4), 0,options[i].c_str());
+            al_draw_text(basicFont,basicTextColor, 20, 20+(i*fontHeight * 1.4), 0,options[i].first.c_str());
         }
         al_flip_display();
         lastKey = waitKeyPress();
@@ -39,10 +39,9 @@ unsigned int TestGUI::menu(std::vector<std::string>& options)
             {
                 current = 0;
             }
-
         }
     }while(lastKey != keyConfig->find("VALIDATE")->second );
-    return current;
+    return options[current].second;
 }
 
 

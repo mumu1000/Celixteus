@@ -2,6 +2,7 @@
 #include "SolarSys.h"
 #include "Cluster.h"
 #include "Universe.h"
+#include <iostream>
 
 //THERE IS STILL SOME SHITTY CONSTANT HERE COMON
 

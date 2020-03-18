@@ -1,4 +1,5 @@
 #include "SolarSysView.h"
+#include <iostream>
 
 SolarSysView::SolarSysView(SolarSys* targetSolarSys)
 {

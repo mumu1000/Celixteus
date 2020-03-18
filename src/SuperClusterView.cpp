@@ -1,4 +1,5 @@
 #include "SuperClusterView.h"
+#include <iostream>
 
 SuperClusterView::SuperClusterView(SuperCluster* targetSuperCluster)
 {

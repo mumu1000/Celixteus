@@ -1,4 +1,9 @@
 #include "Universe.h"
+#include "Player.h"
+#include "PlayerPresence.h"
+#include "Existence.h"
+#include "SuperCluster.h"
+#include <iostream>
 
 //THERE IS STILL SOME SHITTY CONSTANT HERE COMON
 
@@ -25,6 +30,29 @@ Universe::~Universe()
 
 }
 
+void Universe::genSuperCluster(unsigned int generatingPlayerId, unsigned int sClusterId)
+{
+    if ((sClusterId<m_superClusterList.size()) && (m_superClusterList[sClusterId] == nullptr))
+    {
+        m_superClusterList[sClusterId] = new SuperCluster(this,5);
+    }
+}
+
+
+PlayerPresence* Universe::getPlayerPresOfId(unsigned int id)
+{
+    if (id>=m_existence->size()) {return nullptr;}
+
+    unsigned int diff = m_existence->size() - m_playerPresenceList.size();
+    m_playerPresenceList.reserve(diff);
+    for (unsigned int i = 0; i<diff;i++) {m_playerPresenceList.push_back(nullptr);}
+    if (m_playerPresenceList[id] == nullptr)
+    {
+        m_playerPresenceList[id] = new PlayerPresence();
+        m_existence->getPlayerAtId(id)->registerPlayerPresence(m_playerPresenceList[id]);
+    }
+    return m_playerPresenceList[id];
+}
 
 void Universe::update()
 {

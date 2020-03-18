@@ -7,6 +7,7 @@ class Tile;
 class SolarSys;
 class PlanetView;
 class Player;
+class Universe;
 class Planet
 {
     public:

@@ -14,6 +14,8 @@ class ExistenceView : public AbstractView
         float m_xOrigin;
         float m_yOrigin;
         float m_zoom;
+        unsigned int m_currPlayerId;
+        bool m_playerIDSet;
     private:
 };
 

@@ -2,6 +2,7 @@
 #include "Galaxy.h"
 #include "SuperCluster.h"
 #include "Universe.h"
+#include <iostream>
 //THERE IS STILL SOME SHITTY CONSTANT HERE COMON
 
 Cluster::Cluster(SuperCluster* superCluster)

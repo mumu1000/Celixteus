@@ -5,6 +5,7 @@
 class SolarSys;
 class GalaxyView;
 class Cluster;
+class Universe;
 class Galaxy
 {
     public:
