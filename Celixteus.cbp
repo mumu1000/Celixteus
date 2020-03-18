@@ -96,6 +96,7 @@
 		<Unit filename="include/SolarSysView.h" />
 		<Unit filename="include/SuperCluster.h" />
 		<Unit filename="include/SuperClusterView.h" />
+		<Unit filename="include/TestGUI.h" />
 		<Unit filename="include/Tile.h" />
 		<Unit filename="include/TileMiner.h" />
 		<Unit filename="include/Universe.h" />
@@ -119,6 +120,7 @@
 		<Unit filename="src/SolarSysView.cpp" />
 		<Unit filename="src/SuperCluster.cpp" />
 		<Unit filename="src/SuperClusterView.cpp" />
+		<Unit filename="src/TestGUI.cpp" />
 		<Unit filename="src/Tile.cpp" />
 		<Unit filename="src/TileMiner.cpp" />
 		<Unit filename="src/Universe.cpp" />

@@ -2,11 +2,11 @@
 #define CLUSTER_H
 
 #include <vector>
-#include "Galaxy.h"
 
 class Galaxy;
 class ClusterView;
 class SuperCluster;
+class Universe;
 class Cluster
 {
     public:
@@ -17,6 +17,7 @@ class Cluster
         void update();
         Galaxy& operator[](unsigned int i);
         unsigned int size(){return m_galaxyList.size();};
+        Universe* getUniverse();
         SuperCluster* getSuperCluster(){return m_superCluster;};
 
     protected:

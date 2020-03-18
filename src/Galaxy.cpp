@@ -1,4 +1,7 @@
 #include "Galaxy.h"
+#include "SolarSys.h"
+#include "Cluster.h"
+#include "Universe.h"
 
 //THERE IS STILL SOME SHITTY CONSTANT HERE COMON
 
@@ -24,6 +27,10 @@ Galaxy::~Galaxy()
 
 }
 
+Universe* Galaxy::getUniverse()
+{
+    return m_cluster->getUniverse();
+}
 
 void Galaxy::update()
 {

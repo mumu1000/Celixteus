@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1584187220 source:/home/arivier/DEVs/Perso/Celixteus/main.cpp
+1584553495 source:/home/arivier/DEVs/Perso/Celixteus/main.cpp
 	<iostream>
 	<string>
 	<vector>
@@ -18,6 +18,7 @@
 	"UniverseView.h"
 	<ctime>
 	"Player.h"
+	"TestGUI.h"
 
 1581109986 source:/home/arivier/DEVs/Perso/Celixteus/src/AbstractDrawer.cpp
 	"AbstractDrawer.h"
@@ -139,28 +140,31 @@
 1582195326 source:/home/arivier/DEVs/Perso/Celixteus/src/UniverseView.cpp
 	"UniverseView.h"
 
-1582195326 /home/arivier/DEVs/Perso/Celixteus/include/UniverseView.h
+1584552796 /home/arivier/DEVs/Perso/Celixteus/include/UniverseView.h
 	<AbstractView.h>
 	"Universe.h"
+	"TestGUI.h"
 
-1582473151 /home/arivier/DEVs/Perso/Celixteus/include/Universe.h
+1584558301 /home/arivier/DEVs/Perso/Celixteus/include/Universe.h
 	<vector>
 	"SuperCluster.h"
 
 1582473229 source:/home/arivier/DEVs/Perso/Celixteus/src/Universe.cpp
 	"Universe.h"
 
-1582287195 source:/home/arivier/DEVs/Perso/Celixteus/src/Existence.cpp
+1584558318 source:/home/arivier/DEVs/Perso/Celixteus/src/Existence.cpp
 	"Existence.h"
-
-1582313275 /home/arivier/DEVs/Perso/Celixteus/include/Existence.h
-	<vector>
 	"Universe.h"
+	"Player.h"
 
-1582198473 source:/home/arivier/DEVs/Perso/Celixteus/src/ExistenceView.cpp
+1584558301 /home/arivier/DEVs/Perso/Celixteus/include/Existence.h
+	<vector>
+
+1584554356 source:/home/arivier/DEVs/Perso/Celixteus/src/ExistenceView.cpp
 	"ExistenceView.h"
+	"TestGUI.h"
 
-1582198473 /home/arivier/DEVs/Perso/Celixteus/include/ExistenceView.h
+1584550907 /home/arivier/DEVs/Perso/Celixteus/include/ExistenceView.h
 	<AbstractView.h>
 	"Existence.h"
 
@@ -179,4 +183,21 @@
 	"PlayerPresence.h"
 
 1582470426 /home/arivier/DEVs/Perso/Celixteus/include/PlayerPresence.h
+
+1584552822 source:/home/arivier/DEVs/Perso/Celixteus/src/TestGUI.cpp
+	"TestGUI.h"
+	"allegro5/allegro.h"
+	"allegro5/allegro_color.h"
+	"allegro5/allegro_primitives.h"
+	"allegro5/allegro_font.h"
+	<iostream>
+
+1584552796 /home/arivier/DEVs/Perso/Celixteus/include/TestGUI.h
+	<vector>
+	<string>
+	<unordered_map>
+	"allegro5/allegro.h"
+	"allegro5/allegro_color.h"
+	"allegro5/allegro_primitives.h"
+	"allegro5/allegro_font.h"
 

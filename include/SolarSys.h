@@ -1,7 +1,6 @@
 #ifndef SOLARSYS_H
 #define SOLARSYS_H
 #include <vector>
-#include "Planet.h"
 
 class Planet;
 class SolarSysView;
@@ -14,6 +13,7 @@ class SolarSys
         SolarSys(Galaxy* galaxy, unsigned int solarSysSize);
         virtual ~SolarSys();
         void update();
+        Universe* getUniverse();
         Planet& operator[](unsigned int i);
         unsigned int size(){return m_planetList.size();};
         Galaxy* getGalaxy(){return m_galaxy;};

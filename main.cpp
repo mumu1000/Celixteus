@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
 
     TestGUI::initialize();
-
+/*
     std::vector<std::string> choices;
     choices.push_back("choice 1");
     choices.push_back("choice 2");
@@ -44,17 +44,15 @@ int main(int argc, char **argv)
     choices.push_back("Return");
     unsigned int menuResult = TestGUI::menu(choices);
     std::cout << "You chose option " << menuResult << " : " << choices[menuResult] << "\n";
+*/
+    Player* testPlayer = new Player();
+    Existence* testExistence = new Existence();
 
-    //Player* testPlayer = new Player();
-    //Existence* testExistence = new Existence();
-    //testExistence->genUniverse(testPlayer);
-    //testExistence->genUniverse(testPlayer);
-
-    //ExistenceView* testExistenceView = new ExistenceView(testExistence);
-    //testExistenceView->draw();
+    ExistenceView* testExistenceView = new ExistenceView(testExistence);
+    ExistenceView* voidExistenceView = new ExistenceView(nullptr);
+    testExistenceView->draw();
+    voidExistenceView->draw();
     //delete testExistence;
-
-
 
 
     TestGUI::shutDown();

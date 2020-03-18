@@ -1,5 +1,7 @@
 #include "Cluster.h"
-
+#include "Galaxy.h"
+#include "SuperCluster.h"
+#include "Universe.h"
 //THERE IS STILL SOME SHITTY CONSTANT HERE COMON
 
 Cluster::Cluster(SuperCluster* superCluster)
@@ -24,7 +26,10 @@ Cluster::~Cluster()
 
 }
 
-
+Universe* Cluster::getUniverse()
+{
+    return m_superCluster->getUniverse();
+}
 void Cluster::update()
 {
     for (unsigned int i = 0; i != m_galaxyList.size() ;i++ )

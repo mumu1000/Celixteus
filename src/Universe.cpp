@@ -15,8 +15,7 @@ Universe::Universe(Existence* existence, unsigned int universeSize)
     m_superClusterList.reserve( universeSize );
     for (unsigned int x = 0; x != universeSize ; x++)
     {
-        std::cout << "SuperCluster numero " << (x+1) << " sur " << universeSize << " créé\n";
-        m_superClusterList.push_back(new SuperCluster(this, 5));
+        m_superClusterList.push_back(nullptr);
     }
     std::cout << "Création d'un Universe contenant " << (m_superClusterList.size()) << " SuperCluster terminée\n";
 }

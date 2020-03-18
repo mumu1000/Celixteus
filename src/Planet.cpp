@@ -1,4 +1,8 @@
 #include "Planet.h"
+#include "Tile.h"
+#include "SolarSys.h"
+#include "Universe.h"
+#include "Player.h"
 
 Planet::Planet(Player* owner, SolarSys* solarSys)
 {
@@ -35,6 +39,11 @@ void Planet::draw(float xOrigin, float yOrigin, float zoom)
     {
         m_tileList[i]->draw(xOrigin, yOrigin, zoom);
     }
+}
+
+Universe* Planet::getUniverse()
+{
+    return m_solarSys->getUniverse();
 }
 
 void Planet::update()

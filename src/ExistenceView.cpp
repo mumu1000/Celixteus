@@ -1,4 +1,5 @@
 #include "ExistenceView.h"
+#include "TestGUI.h"
 
 ExistenceView::ExistenceView(Existence* targetExistence)
 {
@@ -15,10 +16,30 @@ ExistenceView::~ExistenceView()
 
 void ExistenceView::draw()
 {
-    std::cout << "Je suis une vue d' Existence et je dessine une Existence contenant " << (m_targetExistence->m_universeList.size()) << " Universe\n";
-
-    for (unsigned int i = 0; i != m_targetExistence->m_universeList.size() ;i++ )
+    using namespace TestGUI;
+    if (m_targetExistence == nullptr)
     {
-        std::cout << "I'm drawing Universe number " << (i+1) << "\n";
+        std::string towrite = "Broken Existence View: Pointed existence is nullptr\nReturning.";
+        info(towrite);
+        return;
     }
+    std::vector<std::string> options;
+    options.push_back("Generate Universe");
+    options.push_back("List Universes");
+    options.push_back("Goto Universe");
+    options.push_back("Return to Player View (not implemented)");
+    unsigned int response = menu(options);
+    switch(response)
+    {
+    case 0:
+        break;
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+
+    }
+
 }

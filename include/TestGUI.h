@@ -10,6 +10,7 @@
 namespace TestGUI
 {
     unsigned int menu(std::vector<std::string>& options);
+    void info(std::string& toDisplay);
     bool initialize();
     bool shutDown();
     ALLEGRO_DISPLAY* alConcreteDisplay;

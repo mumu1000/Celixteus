@@ -14,6 +14,7 @@ class Universe
         Universe(Existence* existence);
         Universe(Existence* existence, unsigned int universeSize);
         virtual ~Universe();
+        void genSuperCluster(unsigned int generatingPlayerId);
         void update();
         SuperCluster& operator[](unsigned int i);
         unsigned int size(){return m_superClusterList.size();};

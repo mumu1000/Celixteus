@@ -19,7 +19,7 @@ unsigned int TestGUI::menu(std::vector<std::string>& options)
         al_clear_to_color(al_map_rgb(0,0,20));
         for (unsigned int i = lbegin; i<options.size() && i<lend ;i++)
         {
-            if (i == current) {al_draw_filled_circle(5,(20+(fontHeight/2)+(i*fontHeight * 1.4)),5,basicTextColor);}
+            if (i == current) {al_draw_filled_circle(10,(20+(fontHeight/2)+(i*fontHeight * 1.4)),5,basicTextColor);}
             al_draw_text(basicFont,basicTextColor, 20, 20+(i*fontHeight * 1.4), 0,options[i].c_str());
         }
         al_flip_display();
@@ -45,6 +45,23 @@ unsigned int TestGUI::menu(std::vector<std::string>& options)
     return current;
 }
 
+
+void TestGUI::info(std::string& toDisplay)
+{
+    using namespace TestGUI;
+    al_clear_to_color(al_map_rgb(0,0,20));
+    al_draw_multiline_text(basicFont,basicTextColor, 20, 20, DISPLAY_WIDTH - 40,fontHeight * 1.4, 0,toDisplay.c_str());
+    al_flip_display();
+    while(waitKeyPress() != keyConfig->find("VALIDATE")->second ) {}
+}
+
+
+
+
+
+
+
+
 bool TestGUI::initialize()
 {
     if (al_init() && al_init_primitives_addon() && al_init_font_addon())
@@ -63,7 +80,7 @@ bool TestGUI::initialize()
 
     using namespace TestGUI;
     basicFont = al_create_builtin_font();
-    fontHeight = 8;
+    fontHeight = al_get_font_line_height(basicFont);
     basicTextColor = al_map_rgb(255,255,255);
     keyboardEventQueue = al_create_event_queue();
     al_register_event_source(keyboardEventQueue,al_get_keyboard_event_source());

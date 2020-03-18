@@ -1,4 +1,7 @@
 #include "SolarSys.h"
+#include "Planet.h"
+#include "Galaxy.h"
+#include "Universe.h"
 //THERE IS STILL SOME SHITTY CONSTANT HERE COMON
 
 SolarSys::SolarSys(Galaxy* galaxy)
@@ -21,6 +24,11 @@ SolarSys::SolarSys(Galaxy* galaxy, unsigned int solarSysSize)
 SolarSys::~SolarSys()
 {
 
+}
+
+Universe* SolarSys::getUniverse()
+{
+    return m_galaxy->getUniverse();
 }
 
 void SolarSys::update()

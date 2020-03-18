@@ -1,7 +1,6 @@
 #ifndef GALAXY_H
 #define GALAXY_H
 #include <vector>
-#include "SolarSys.h"
 
 class SolarSys;
 class GalaxyView;
@@ -14,6 +13,7 @@ class Galaxy
         Galaxy(Cluster* cluster, unsigned int galaxySize);
         virtual ~Galaxy();
         void update();
+        Universe* getUniverse();
         SolarSys& operator[](unsigned int i);
         unsigned int size(){return m_solarSysList.size();};
         Cluster* getCluster(){return m_cluster;};

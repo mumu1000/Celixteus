@@ -1,7 +1,6 @@
 #ifndef SUPERCLUSTER_H
 #define SUPERCLUSTER_H
 #include <vector>
-#include "Cluster.h"
 class Cluster;
 class SuperClusterView;
 class Universe;

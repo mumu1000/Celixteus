@@ -3,6 +3,7 @@
 
 #include <AbstractView.h>
 #include "Universe.h"
+#include "TestGUI.h"
 
 class UniverseView : public AbstractView
 {

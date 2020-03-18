@@ -1,13 +1,12 @@
 #ifndef PLANET_H
 #define PLANET_H
 #include <vector>
-#include "Tile.h"
 #include <iostream>
-#include "Player.h"
 
 class Tile;
 class SolarSys;
 class PlanetView;
+class Player;
 class Planet
 {
     public:
@@ -17,6 +16,7 @@ class Planet
         virtual ~Planet();
         void draw(float xOrigin, float yOrigin, float zoom);
         void update();
+        Universe* getUniverse();
         Tile& operator[](unsigned int i);
         unsigned int size(){return m_tileList.size();};
         SolarSys* getSolarSys(){return m_solarSys;};
@@ -31,9 +31,4 @@ class Planet
 
 #endif // PLANET_H
 
-/*
-- Tile
--
 
-
-*/

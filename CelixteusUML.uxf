@@ -3,8 +3,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>329</x>
-      <y>63</y>
+      <x>238</x>
+      <y>126</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
@@ -15,8 +15,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>91</x>
-      <y>196</y>
+      <x>0</x>
+      <y>259</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
@@ -28,14 +28,13 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>483</x>
-      <y>196</y>
+      <x>392</x>
+      <y>259</y>
       <w>161</w>
       <h>112</h>
     </coordinates>
     <panel_attributes>Planet
 --
-draw()
 update()
 collect()
 generate()
@@ -48,8 +47,8 @@ m_solarSys</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>665</x>
-      <y>196</y>
+      <x>574</x>
+      <y>259</y>
       <w>161</w>
       <h>56</h>
     </coordinates>
@@ -63,8 +62,8 @@ collect()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>301</x>
-      <y>196</y>
+      <x>210</x>
+      <y>259</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
@@ -76,8 +75,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1029</x>
-      <y>196</y>
+      <x>938</x>
+      <y>259</y>
       <w>161</w>
       <h>280</h>
     </coordinates>
@@ -91,7 +90,7 @@ update()
 collect()
 upgrade()
 --
-m_ccBonus
+m_ccBonus (construct cost)
 m_prodLevel
 m_storLevel
 m_specLevel
@@ -110,8 +109,8 @@ m_hasCrystal
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>854</x>
-      <y>196</y>
+      <x>763</x>
+      <y>259</y>
       <w>161</w>
       <h>56</h>
     </coordinates>
@@ -125,8 +124,8 @@ collect()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>112</x>
-      <y>63</y>
+      <x>21</x>
+      <y>126</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
@@ -137,8 +136,8 @@ collect()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>483</x>
-      <y>315</y>
+      <x>392</x>
+      <y>378</y>
       <w>161</w>
       <h>84</h>
     </coordinates>
@@ -155,8 +154,8 @@ m_galaxy</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>483</x>
-      <y>406</y>
+      <x>392</x>
+      <y>469</y>
       <w>161</w>
       <h>84</h>
     </coordinates>
@@ -173,8 +172,8 @@ m_cluster</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>483</x>
-      <y>497</y>
+      <x>392</x>
+      <y>560</y>
       <w>161</w>
       <h>84</h>
     </coordinates>
@@ -191,8 +190,8 @@ m_superClust</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>483</x>
-      <y>588</y>
+      <x>392</x>
+      <y>651</y>
       <w>161</w>
       <h>91</h>
     </coordinates>
@@ -209,8 +208,8 @@ m_universe</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>483</x>
-      <y>686</y>
+      <x>392</x>
+      <y>749</y>
       <w>161</w>
       <h>84</h>
     </coordinates>
@@ -227,8 +226,8 @@ m_existence</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>301</x>
-      <y>315</y>
+      <x>210</x>
+      <y>378</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
@@ -240,8 +239,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>301</x>
-      <y>406</y>
+      <x>210</x>
+      <y>469</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
@@ -253,8 +252,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>301</x>
-      <y>497</y>
+      <x>210</x>
+      <y>560</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
@@ -266,8 +265,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>301</x>
-      <y>588</y>
+      <x>210</x>
+      <y>651</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
@@ -279,8 +278,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>301</x>
-      <y>686</y>
+      <x>210</x>
+      <y>749</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
@@ -292,8 +291,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>532</x>
-      <y>63</y>
+      <x>420</x>
+      <y>126</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
@@ -306,8 +305,8 @@ draw()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>483</x>
-      <y>777</y>
+      <x>392</x>
+      <y>840</y>
       <w>161</w>
       <h>112</h>
     </coordinates>
@@ -321,14 +320,90 @@ m_universeList</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>301</x>
-      <y>777</y>
+      <x>210</x>
+      <y>840</y>
       <w>161</w>
       <h>49</h>
     </coordinates>
     <panel_attributes>ExistenceView
 --
 draw()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>602</x>
+      <y>14</y>
+      <w>161</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>PlayerBonus
+--
+m_buildCostFactor
+m_otherBuildTimeFactor
+m_resBuildConstTimeFactor
+m_resBuildProdFactor
+m_storBuildStorFactor
+m_miningRarityFactor
+m_miningRichUpChance
+m_miningRichnessBaseFactor
+m_materialPriceFactor
+m_mineralToCashFactor
+m_cashToMineralFactor
+m_shipExpFactor
+m_shipStatsFactor</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>126</y>
+      <w>161</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Bonus
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>945</x>
+      <y>126</y>
+      <w>161</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>PlayerPresence
+--
+m_level
+m_experience
+m_energy
+m_mineral
+m_mineralCap
+m_collectLevel
+m_ballsCollectLevel
+m_crystalCollectLevel
+m_materialCollectLevel</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>672</x>
+      <y>497</y>
+      <w>245</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>En premier les buildings de ressources
+En deuxieme les buildings speciaux
+En troisieme les combats
+En quatrieme les autres universes
+En cinquieme les items</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
