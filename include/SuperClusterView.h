@@ -9,7 +9,7 @@ class SuperClusterView : public AbstractView
     public:
         SuperClusterView(SuperCluster* targetSuperCluster, unsigned int currPlayerId, bool playerIDSet);
         virtual ~SuperClusterView();
-        void draw();
+        AbstractView* draw();
     protected:
         SuperCluster* m_targetSuperCluster;
         float m_xOrigin;

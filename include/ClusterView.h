@@ -9,7 +9,7 @@ class ClusterView : public AbstractView
     public:
         ClusterView(Cluster* targetCluster, unsigned int currPlayerId, bool playerIDSet);
         virtual ~ClusterView();
-        void draw();
+        AbstractView* draw();
     protected:
         Cluster* m_targetCluster;
         float m_xOrigin;

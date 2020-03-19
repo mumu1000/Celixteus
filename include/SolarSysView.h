@@ -9,7 +9,7 @@ class SolarSysView : public AbstractView
     public:
         SolarSysView(SolarSys* targetSolarSys, unsigned int currPlayerId, bool playerIDSet);
         virtual ~SolarSysView();
-        void draw();
+        AbstractView* draw();
     protected:
         SolarSys* m_targetSolarSys;
         float m_xOrigin;

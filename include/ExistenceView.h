@@ -7,8 +7,9 @@ class ExistenceView : public AbstractView
 {
     public:
         ExistenceView(Existence* targetExistence);
+        ExistenceView(Existence* targetExistence, unsigned int currPlayerId, bool playerIDSet);
         virtual ~ExistenceView();
-        void draw();
+        AbstractView* draw();
     protected:
         Existence* m_targetExistence;
         float m_xOrigin;

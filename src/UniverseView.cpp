@@ -2,6 +2,7 @@
 #include "SuperClusterView.h"
 #include "TestGUI.h"
 #include "Universe.h"
+#include "ExistenceView.h"
 #include <iostream>
 
 UniverseView::UniverseView(Universe* targetUniverse, unsigned int currPlayerId, bool playerIDSet)
@@ -19,14 +20,14 @@ UniverseView::~UniverseView()
     //dtor
 }
 
-void UniverseView::draw()
+AbstractView* UniverseView::draw()
 {
     using namespace TestGUI;
     if (m_targetUniverse == nullptr)
     {
         std::string towrite = "Broken UniverseView: Pointed Universe is nullptr\nReturning.";
         info(towrite);
-        return;
+        return this;
     }
 
 
@@ -61,8 +62,7 @@ void UniverseView::draw()
                 unsigned int selectedSCluster = menu(optionsSClust);
                 if (selectedSCluster==m_targetUniverse->m_superClusterList.size()) {break;}
                 SuperClusterView* superClusterView = new SuperClusterView(&(*m_targetUniverse)[selectedSCluster],m_currPlayerId,m_playerIDSet);
-                superClusterView->draw();
-                delete superClusterView;
+                return superClusterView;
                 break;
             }
         case 1:
@@ -100,5 +100,7 @@ void UniverseView::draw()
             break;
         }
     }while (!quit);
+    return new ExistenceView(m_targetUniverse->getExistence(),m_currPlayerId,m_playerIDSet);
 
 }
+

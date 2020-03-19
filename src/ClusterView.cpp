@@ -2,6 +2,7 @@
 #include "GalaxyView.h"
 #include "TestGUI.h"
 #include "Cluster.h"
+#include "SuperClusterView.h"
 #include <iostream>
 
 ClusterView::ClusterView(Cluster* targetCluster, unsigned int currPlayerId, bool playerIDSet)
@@ -19,14 +20,14 @@ ClusterView::~ClusterView()
     //dtor
 }
 
-void ClusterView::draw()
+AbstractView* ClusterView::draw()
 {
     using namespace TestGUI;
     if (m_targetCluster == nullptr)
     {
         std::string towrite = "Broken ClusterView: Pointed Cluster is nullptr\nReturning.";
         info(towrite);
-        return;
+        return this;
     }
 
 
@@ -61,8 +62,7 @@ void ClusterView::draw()
                 unsigned int selectedGalaxy = menu(optionsGalaxy);
                 if (selectedGalaxy==m_targetCluster->m_galaxyList.size()) {break;}
                 GalaxyView* galaxyView = new GalaxyView(&(*m_targetCluster)[selectedGalaxy],m_currPlayerId,m_playerIDSet);
-                galaxyView->draw();
-                delete galaxyView;
+                return galaxyView;
                 break;
             }
         case 1:
@@ -100,5 +100,6 @@ void ClusterView::draw()
             break;
         }
     }while (!quit);
+    return new SuperClusterView(m_targetCluster->getSuperCluster(),m_currPlayerId,m_playerIDSet);
 
 }

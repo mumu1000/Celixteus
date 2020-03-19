@@ -7,7 +7,7 @@
     public:
         AbstractView();
         virtual ~AbstractView();
-        virtual void draw() = 0;
+        virtual AbstractView* draw() = 0;
     protected:
 
     private:

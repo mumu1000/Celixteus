@@ -2,6 +2,7 @@
 #include "SolarSysView.h"
 #include "TestGUI.h"
 #include "Galaxy.h"
+#include "ClusterView.h"
 #include <iostream>
 
 GalaxyView::GalaxyView(Galaxy* targetGalaxy, unsigned int currPlayerId, bool playerIDSet)
@@ -19,14 +20,14 @@ GalaxyView::~GalaxyView()
     //dtor
 }
 
-void GalaxyView::draw()
+AbstractView* GalaxyView::draw()
 {
     using namespace TestGUI;
     if (m_targetGalaxy == nullptr)
     {
         std::string towrite = "Broken GalaxyView: Pointed Galaxy is nullptr\nReturning.";
         info(towrite);
-        return;
+        return this;
     }
 
 
@@ -61,8 +62,7 @@ void GalaxyView::draw()
                 unsigned int selectedSolarSys = menu(optionsSolarSys);
                 if (selectedSolarSys==m_targetGalaxy->m_solarSysList.size()) {break;}
                 SolarSysView* solarSysView = new SolarSysView(&(*m_targetGalaxy)[selectedSolarSys],m_currPlayerId,m_playerIDSet);
-                solarSysView->draw();
-                delete solarSysView;
+                return solarSysView;
                 break;
             }
         case 1:
@@ -100,5 +100,6 @@ void GalaxyView::draw()
             break;
         }
     }while (!quit);
+    return new ClusterView(m_targetGalaxy->getCluster(),m_currPlayerId,m_playerIDSet);
 
 }

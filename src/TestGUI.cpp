@@ -4,6 +4,7 @@
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
 #include <iostream>
+#include "AbstractView.h"
 #define DISPLAY_WIDTH 1920
 #define DISPLAY_HEIGHT 1080
 
@@ -55,12 +56,6 @@ void TestGUI::info(std::string& toDisplay)
 }
 
 
-
-
-
-
-
-
 bool TestGUI::initialize()
 {
     if (al_init() && al_init_primitives_addon() && al_init_font_addon())
@@ -109,6 +104,24 @@ bool TestGUI::initialize()
 
     return true;
 }
+
+
+
+void TestGUI::enterGUI(AbstractView* enteringView)
+{
+    AbstractView* currentView = enteringView;
+    while (currentView != nullptr)
+    {
+        AbstractView* nextView = currentView->draw();
+        if (nextView !=currentView)
+        {
+            delete currentView;
+        }
+        currentView = nextView;
+    }
+}
+
+
 
 bool TestGUI::shutDown()
 {

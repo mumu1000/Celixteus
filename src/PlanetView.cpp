@@ -1,5 +1,7 @@
 #include "PlanetView.h"
 #include "Planet.h"
+#include "TestGUI.h"
+#include "SolarSysView.h"
 #include <iostream>
 
 PlanetView::PlanetView(Planet* targetPlanet, unsigned int currPlayerId, bool playerIDSet)
@@ -15,10 +17,12 @@ PlanetView::~PlanetView()
     //dtor
 }
 
-void PlanetView::draw()
+AbstractView* PlanetView::draw()
 {
-    std::cout << "Je suis une vue et je dessine une planète\n";
-    m_targetPlanet->draw(m_xOrigin,m_yOrigin,m_zoom);
+    using namespace TestGUI;
+    std::string toDraw = "Je suis une planète";
+    info(toDraw);
+    return new SolarSysView(m_targetPlanet->getSolarSys(),m_currPlayerId,m_playerIDSet);
 }
 
 

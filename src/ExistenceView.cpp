@@ -12,19 +12,30 @@ ExistenceView::ExistenceView(Existence* targetExistence)
     m_playerIDSet = false;
 }
 
+ExistenceView::ExistenceView(Existence* targetExistence, unsigned int currPlayerId, bool playerIDSet)
+{
+    m_targetExistence = targetExistence;
+    m_xOrigin = 0.0;
+    m_yOrigin = 0.0;
+    m_zoom = 0.0;
+    m_currPlayerId = currPlayerId;
+    m_playerIDSet = playerIDSet;
+}
+
+
 ExistenceView::~ExistenceView()
 {
     //dtor
 }
 
-void ExistenceView::draw()
+AbstractView* ExistenceView::draw()
 {
     using namespace TestGUI;
     if (m_targetExistence == nullptr)
     {
         std::string towrite = "Broken Existence View: Pointed existence is nullptr\nReturning.";
         info(towrite);
-        return;
+        return this;
     }
 
 
@@ -78,8 +89,7 @@ void ExistenceView::draw()
                 unsigned int selectedUniverse = menu(optionsUniverse);
                 if (selectedUniverse==m_targetExistence->m_universeList.size()) {break;}
                 UniverseView* universeView = new UniverseView(&(*m_targetExistence)[selectedUniverse],m_currPlayerId,m_playerIDSet);
-                universeView->draw();
-                delete universeView;
+                return universeView;
                 break;
             }
         case 3:
@@ -100,7 +110,7 @@ void ExistenceView::draw()
             break;
         }
     }while (!quit);
-
+    return nullptr;
 }
 
 

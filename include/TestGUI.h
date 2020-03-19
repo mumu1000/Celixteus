@@ -7,11 +7,13 @@
 #include "allegro5/allegro_color.h"
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
+class AbstractView;
 namespace TestGUI
 {
     unsigned int menu(std::vector<std::pair<std::string,unsigned int>>& options);
     void info(std::string& toDisplay);
     bool initialize();
+    void enterGUI(AbstractView* enteringView);
     bool shutDown();
     ALLEGRO_DISPLAY* alConcreteDisplay;
     ALLEGRO_FONT* basicFont;

@@ -9,7 +9,7 @@ class GalaxyView : public AbstractView
     public:
         GalaxyView(Galaxy* targetGalaxy, unsigned int currPlayerId, bool playerIDSet);
         virtual ~GalaxyView();
-        void draw();
+        AbstractView* draw();
     protected:
         Galaxy* m_targetGalaxy;
         float m_xOrigin;

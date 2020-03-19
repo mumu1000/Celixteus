@@ -10,7 +10,7 @@ class PlanetView : public AbstractView
     public:
         PlanetView( Planet* targetPlanet, unsigned int currPlayerId, bool playerIDSet);
         virtual ~PlanetView();
-        void draw();
+        AbstractView* draw();
     protected:
         Planet* m_targetPlanet;
         float m_xOrigin;

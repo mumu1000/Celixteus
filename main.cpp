@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 */
     Existence* testExistence = new Existence();
     ExistenceView* testExistenceView = new ExistenceView(testExistence);
-    testExistenceView->draw();
+    TestGUI::enterGUI(testExistenceView);
     //delete testExistence;
 
     TestGUI::shutDown();

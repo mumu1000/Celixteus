@@ -2,6 +2,7 @@
 #include "ClusterView.h"
 #include "TestGUI.h"
 #include "SuperCluster.h"
+#include "UniverseView.h"
 #include <iostream>
 
 SuperClusterView::SuperClusterView(SuperCluster* targetSuperCluster, unsigned int currPlayerId, bool playerIDSet)
@@ -19,14 +20,14 @@ SuperClusterView::~SuperClusterView()
     //dtor
 }
 
-void SuperClusterView::draw()
+AbstractView* SuperClusterView::draw()
 {
     using namespace TestGUI;
     if (m_targetSuperCluster == nullptr)
     {
         std::string towrite = "Broken SuperClusterView: Pointed SuperCluster is nullptr\nReturning.";
         info(towrite);
-        return;
+        return this;
     }
 
 
@@ -61,8 +62,7 @@ void SuperClusterView::draw()
                 unsigned int selectedCluster = menu(optionsClust);
                 if (selectedCluster==m_targetSuperCluster->m_clusterList.size()) {break;}
                 ClusterView* clusterView = new ClusterView(&(*m_targetSuperCluster)[selectedCluster],m_currPlayerId,m_playerIDSet);
-                clusterView->draw();
-                delete clusterView;
+                return clusterView;
                 break;
             }
         case 1:
@@ -100,5 +100,5 @@ void SuperClusterView::draw()
             break;
         }
     }while (!quit);
-
+    return new UniverseView(m_targetSuperCluster->getUniverse(),m_currPlayerId,m_playerIDSet);
 }

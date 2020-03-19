@@ -9,7 +9,7 @@ class UniverseView : public AbstractView
     public:
         UniverseView(Universe* targetUniverse, unsigned int currPlayerId, bool playerIDSet);
         virtual ~UniverseView();
-        void draw();
+        AbstractView* draw();
     protected:
         Universe* m_targetUniverse;
         float m_xOrigin;

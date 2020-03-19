@@ -2,6 +2,7 @@
 #include "PlanetView.h"
 #include "TestGUI.h"
 #include "SolarSys.h"
+#include "GalaxyView.h"
 #include <iostream>
 
 SolarSysView::SolarSysView(SolarSys* targetSolarSys, unsigned int currPlayerId, bool playerIDSet)
@@ -19,14 +20,14 @@ SolarSysView::~SolarSysView()
     //dtor
 }
 
-void SolarSysView::draw()
+AbstractView* SolarSysView::draw()
 {
     using namespace TestGUI;
     if (m_targetSolarSys == nullptr)
     {
         std::string towrite = "Broken SolarSysView: Pointed SolarSys is nullptr\nReturning.";
         info(towrite);
-        return;
+        return this;
     }
 
 
@@ -61,8 +62,7 @@ void SolarSysView::draw()
                 unsigned int selectedPlanet = menu(optionsPlanet);
                 if (selectedPlanet==m_targetSolarSys->m_planetList.size()) {break;}
                 PlanetView* planetView = new PlanetView(&(*m_targetSolarSys)[selectedPlanet],m_currPlayerId,m_playerIDSet);
-                planetView->draw();
-                delete planetView;
+                return planetView;
                 break;
             }
         case 1:
@@ -100,5 +100,6 @@ void SolarSysView::draw()
             break;
         }
     }while (!quit);
+    return new GalaxyView(m_targetSolarSys->getGalaxy(),m_currPlayerId,m_playerIDSet);
 
 }
