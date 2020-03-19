@@ -16,8 +16,7 @@ SuperCluster::SuperCluster(Universe* universe, unsigned int superClusterSize)
     m_clusterList.reserve( superClusterSize );
     for (unsigned int x = 0; x != superClusterSize ; x++)
     {
-        std::cout << "Cluster numero " << (x+1) << " sur " << superClusterSize << " créé\n";
-        m_clusterList.push_back(new Cluster(this, 5));
+        m_clusterList.push_back(nullptr);
     }
     std::cout << "Création d'un SuperCluster contenant " << (m_clusterList.size()) << " Cluster terminée\n";
 }
@@ -27,6 +26,13 @@ SuperCluster::~SuperCluster()
 
 }
 
+void SuperCluster::genCluster(unsigned int generatingPlayerId, unsigned int clusterId)
+{
+    if ((clusterId<m_clusterList.size()) && (m_clusterList[clusterId] == nullptr))
+    {
+        m_clusterList[clusterId] = new Cluster(this,5);
+    }
+}
 
 void SuperCluster::update()
 {

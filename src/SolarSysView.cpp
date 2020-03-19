@@ -1,12 +1,17 @@
 #include "SolarSysView.h"
+#include "PlanetView.h"
+#include "TestGUI.h"
+#include "SolarSys.h"
 #include <iostream>
 
-SolarSysView::SolarSysView(SolarSys* targetSolarSys)
+SolarSysView::SolarSysView(SolarSys* targetSolarSys, unsigned int currPlayerId, bool playerIDSet)
 {
     m_targetSolarSys = targetSolarSys;
     m_xOrigin = 0.0;
     m_yOrigin = 0.0;
     m_zoom = 0.0;
+    m_currPlayerId = currPlayerId;
+    m_playerIDSet = playerIDSet;
 }
 
 SolarSysView::~SolarSysView()
@@ -16,10 +21,84 @@ SolarSysView::~SolarSysView()
 
 void SolarSysView::draw()
 {
-    std::cout << "Je suis une vue de SolarSys et je dessine un SolarSys contenant " << (m_targetSolarSys->m_planetList.size()) << " Planètes\n";
-
-    for (unsigned int i = 0; i != m_targetSolarSys->m_planetList.size() ;i++ )
+    using namespace TestGUI;
+    if (m_targetSolarSys == nullptr)
     {
-        std::cout << "I'm drawing Planet number " << (i+1) << "\n";
+        std::string towrite = "Broken SolarSysView: Pointed SolarSys is nullptr\nReturning.";
+        info(towrite);
+        return;
     }
+
+
+    bool quit = false;
+    do
+    {
+        std::vector<std::pair<std::string,unsigned int>> options;
+
+        options.push_back(std::make_pair("Goto Planet",0));
+        if (m_playerIDSet)
+        {
+            options.push_back(std::make_pair("Generate Planet",1));
+        }
+        options.push_back(std::make_pair("List Planets",2));
+        options.push_back(std::make_pair("Return",3));
+        unsigned int response = menu(options);
+        switch(response)
+        {
+        case 0:
+            {
+                std::vector<std::pair<std::string,unsigned int>> optionsPlanet;
+                for (unsigned int i = 0; i<m_targetSolarSys->m_planetList.size();i++)
+                {
+                    if (m_targetSolarSys->m_planetList[i] != nullptr)
+                    {
+                        const std::string temp1 = "Planet ";
+                        std::string temp2 = std::to_string(i);
+                        optionsPlanet.push_back(std::make_pair(temp1+temp2,i));
+                    }
+                }
+                optionsPlanet.push_back(std::make_pair("Return",m_targetSolarSys->m_planetList.size()));
+                unsigned int selectedPlanet = menu(optionsPlanet);
+                if (selectedPlanet==m_targetSolarSys->m_planetList.size()) {break;}
+                PlanetView* planetView = new PlanetView(&(*m_targetSolarSys)[selectedPlanet],m_currPlayerId,m_playerIDSet);
+                planetView->draw();
+                delete planetView;
+                break;
+            }
+        case 1:
+            {
+                std::vector<std::pair<std::string,unsigned int>> optionsPlanet;
+                for (unsigned int i = 0; i<m_targetSolarSys->m_planetList.size();i++)
+                {
+                    if (m_targetSolarSys->m_planetList[i] == nullptr)
+                    {
+                        const std::string temp1 = "Unknown Planet ";
+                        std::string temp2 = std::to_string(i);
+                        optionsPlanet.push_back(std::make_pair(temp1+temp2,i));
+                    }
+
+                }
+                optionsPlanet.push_back(std::make_pair("Return",m_targetSolarSys->m_planetList.size()));
+                unsigned int selectedPlanet = menu(optionsPlanet);
+                if (selectedPlanet==m_targetSolarSys->m_planetList.size()) {break;}
+                m_targetSolarSys->genPlanet(m_currPlayerId,selectedPlanet);
+                break;
+            }
+        case 2:
+            {
+                std::string toWrite;
+                for (unsigned int i = 0; i<m_targetSolarSys->m_planetList.size();i++)
+                {
+                    if (m_targetSolarSys->m_planetList[i] != nullptr)
+                    toWrite = toWrite + "Planet " + std::to_string(i) + "\n";
+                }
+                info(toWrite);
+                break;
+            }
+        case 3:
+            quit=true;
+            break;
+        }
+    }while (!quit);
+
 }

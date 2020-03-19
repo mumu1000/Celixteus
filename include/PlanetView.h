@@ -1,15 +1,14 @@
 #ifndef PLANETVIEW_H
 #define PLANETVIEW_H
+
 #include "AbstractView.h"
-#include "Planet.h"
-#include <iostream>
 
 
 class Planet;
 class PlanetView : public AbstractView
 {
     public:
-        PlanetView( Planet* targetPlanet);
+        PlanetView( Planet* targetPlanet, unsigned int currPlayerId, bool playerIDSet);
         virtual ~PlanetView();
         void draw();
     protected:
@@ -17,6 +16,8 @@ class PlanetView : public AbstractView
         float m_xOrigin;
         float m_yOrigin;
         float m_zoom;
+        unsigned int m_currPlayerId;
+        bool m_playerIDSet;
     private:
 };
 

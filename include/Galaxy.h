@@ -13,6 +13,7 @@ class Galaxy
         Galaxy(Cluster* cluster);
         Galaxy(Cluster* cluster, unsigned int galaxySize);
         virtual ~Galaxy();
+        void genSolarSys(unsigned int generatingPlayerId, unsigned int solarSysId);  //IDEMPOTENT FUNCTION, DOES NOTHING IF TARGET IS ALREADY GENERATED (aka vector at index not nullptr)
         void update();
         Universe* getUniverse();
         SolarSys& operator[](unsigned int i);

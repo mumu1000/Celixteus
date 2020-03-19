@@ -1,4 +1,7 @@
 #include "UniverseView.h"
+#include "SuperClusterView.h"
+#include "TestGUI.h"
+#include "Universe.h"
 #include <iostream>
 
 UniverseView::UniverseView(Universe* targetUniverse, unsigned int currPlayerId, bool playerIDSet)
@@ -21,7 +24,7 @@ void UniverseView::draw()
     using namespace TestGUI;
     if (m_targetUniverse == nullptr)
     {
-        std::string towrite = "Broken Universe View: Pointed existence is nullptr\nReturning.";
+        std::string towrite = "Broken UniverseView: Pointed Universe is nullptr\nReturning.";
         info(towrite);
         return;
     }
@@ -43,7 +46,25 @@ void UniverseView::draw()
         switch(response)
         {
         case 0:
-            break;
+            {
+                std::vector<std::pair<std::string,unsigned int>> optionsSClust;
+                for (unsigned int i = 0; i<m_targetUniverse->m_superClusterList.size();i++)
+                {
+                    if (m_targetUniverse->m_superClusterList[i] != nullptr)
+                    {
+                        const std::string temp1 = "SuperCluster ";
+                        std::string temp2 = std::to_string(i);
+                        optionsSClust.push_back(std::make_pair(temp1+temp2,i));
+                    }
+                }
+                optionsSClust.push_back(std::make_pair("Return",m_targetUniverse->m_superClusterList.size()));
+                unsigned int selectedSCluster = menu(optionsSClust);
+                if (selectedSCluster==m_targetUniverse->m_superClusterList.size()) {break;}
+                SuperClusterView* superClusterView = new SuperClusterView(&(*m_targetUniverse)[selectedSCluster],m_currPlayerId,m_playerIDSet);
+                superClusterView->draw();
+                delete superClusterView;
+                break;
+            }
         case 1:
             {
                 std::vector<std::pair<std::string,unsigned int>> optionsSClust;
@@ -69,7 +90,7 @@ void UniverseView::draw()
                 for (unsigned int i = 0; i<m_targetUniverse->m_superClusterList.size();i++)
                 {
                     if (m_targetUniverse->m_superClusterList[i] != nullptr)
-                    toWrite = toWrite + "Universe " + std::to_string(i) + "\n";
+                    toWrite = toWrite + "SuperCluster " + std::to_string(i) + "\n";
                 }
                 info(toWrite);
                 break;

@@ -2,17 +2,15 @@
 #define TILE_H
 #define TILE_WIDTH 100
 #define TILE_HEIGHT 100
-#include <iostream>
 #include "AbstractTilePlaceable.h"
-#include "Player.h"
-
+class PlayerPresence;
 class AbstractTilePlaceable;
 class Planet;
 class Tile
 {
     public:
-        Tile(Player* owner, Planet* planet);
-        Tile(Player* owner, Planet* planet, unsigned int xPos, unsigned int yPos);
+        Tile(PlayerPresence* owner, Planet* planet);
+        Tile(PlayerPresence* owner, Planet* planet, unsigned int xPos, unsigned int yPos);
         virtual ~Tile();
 
         enum TileType { miner, energyExtractor, storageBuilding };
@@ -26,7 +24,7 @@ class Tile
         unsigned int m_xPos;
         unsigned int m_yPos;
         AbstractTilePlaceable* m_tileContent;
-        Player* m_owner;
+        PlayerPresence* m_owner;
         Planet* m_planet;
 
     private:

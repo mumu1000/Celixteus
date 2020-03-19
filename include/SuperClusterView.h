@@ -2,12 +2,12 @@
 #define SUPERCLUSTERVIEW_H
 
 #include <AbstractView.h>
-#include "SuperCluster.h"
 
+class SuperCluster;
 class SuperClusterView : public AbstractView
 {
     public:
-        SuperClusterView(SuperCluster* targetSuperCluster);
+        SuperClusterView(SuperCluster* targetSuperCluster, unsigned int currPlayerId, bool playerIDSet);
         virtual ~SuperClusterView();
         void draw();
     protected:
@@ -15,6 +15,8 @@ class SuperClusterView : public AbstractView
         float m_xOrigin;
         float m_yOrigin;
         float m_zoom;
+        unsigned int m_currPlayerId;
+        bool m_playerIDSet;
     private:
 };
 

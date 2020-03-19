@@ -4,13 +4,13 @@
 #include "Universe.h"
 #include "Player.h"
 
-Planet::Planet(Player* owner, SolarSys* solarSys)
+Planet::Planet(PlayerPresence* owner, SolarSys* solarSys)
 {
     m_owner = owner;
     m_solarSys = solarSys;
 }
 
-Planet::Planet(Player* owner, SolarSys* solarSys, unsigned int planetSize)
+Planet::Planet(PlayerPresence* owner, SolarSys* solarSys, unsigned int planetSize)
 {
     m_owner = owner;
     m_solarSys = solarSys;

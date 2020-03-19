@@ -10,6 +10,7 @@ class SuperCluster
         friend SuperClusterView;
         SuperCluster(Universe* universe);
         SuperCluster(Universe* universe, unsigned int SuperClusterSize);
+        void genCluster(unsigned int generatingPlayerId, unsigned int clusterId);  //IDEMPOTENT FUNCTION, DOES NOTHING IF TARGET IS ALREADY GENERATED (aka vector at index not nullptr)
         virtual ~SuperCluster();
         void update();
         Cluster& operator[](unsigned int i);

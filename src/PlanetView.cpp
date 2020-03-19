@@ -1,6 +1,8 @@
 #include "PlanetView.h"
+#include "Planet.h"
+#include <iostream>
 
-PlanetView::PlanetView(Planet* targetPlanet)
+PlanetView::PlanetView(Planet* targetPlanet, unsigned int currPlayerId, bool playerIDSet)
 {
     m_targetPlanet = targetPlanet;
     m_xOrigin = 0.0;

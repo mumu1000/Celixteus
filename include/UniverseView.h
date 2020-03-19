@@ -2,9 +2,8 @@
 #define UNIVERSEVIEW_H
 
 #include <AbstractView.h>
-#include "Universe.h"
-#include "TestGUI.h"
 
+class Universe;
 class UniverseView : public AbstractView
 {
     public:

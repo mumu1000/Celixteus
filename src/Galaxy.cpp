@@ -18,7 +18,7 @@ Galaxy::Galaxy(Cluster* cluster,unsigned int galaxySize)
     for (unsigned int x = 0; x != galaxySize ; x++)
     {
         std::cout << "SolarSys numero " << (x+1) << " sur " << galaxySize << " créée\n";
-        m_solarSysList.push_back(new SolarSys(this , 5));
+        m_solarSysList.push_back(nullptr);
     }
     std::cout << "Création d'une Galaxy contenant " << (m_solarSysList.size()) << " SolarSys terminée\n";
 }
@@ -26,6 +26,14 @@ Galaxy::Galaxy(Cluster* cluster,unsigned int galaxySize)
 Galaxy::~Galaxy()
 {
 
+}
+
+void Galaxy::genSolarSys(unsigned int generatingPlayerId, unsigned int solarSysId)
+{
+    if ((solarSysId<m_solarSysList.size()) && (m_solarSysList[solarSysId] == nullptr))
+    {
+        m_solarSysList[solarSysId] = new SolarSys(this,5);
+    }
 }
 
 Universe* Galaxy::getUniverse()

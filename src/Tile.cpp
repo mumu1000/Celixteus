@@ -1,6 +1,6 @@
 #include "Tile.h"
 #include "TileMiner.h"
-Tile::Tile(Player* owner, Planet* planet)
+Tile::Tile(PlayerPresence* owner, Planet* planet)
 {
     m_owner = owner;
     m_planet = planet;
@@ -9,7 +9,7 @@ Tile::Tile(Player* owner, Planet* planet)
     m_tileContent = nullptr;
 }
 
-Tile::Tile(Player* owner, Planet* planet, unsigned int xPos, unsigned int yPos)
+Tile::Tile(PlayerPresence* owner, Planet* planet, unsigned int xPos, unsigned int yPos)
 {
     m_owner = owner;
     m_planet = planet;

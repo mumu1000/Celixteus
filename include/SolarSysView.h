@@ -2,12 +2,12 @@
 #define SOLARSYSVIEW_H
 
 #include <AbstractView.h>
-#include "SolarSys.h"
 
+class SolarSys;
 class SolarSysView : public AbstractView
 {
     public:
-        SolarSysView(SolarSys* targetSolarSys);
+        SolarSysView(SolarSys* targetSolarSys, unsigned int currPlayerId, bool playerIDSet);
         virtual ~SolarSysView();
         void draw();
     protected:
@@ -15,6 +15,8 @@ class SolarSysView : public AbstractView
         float m_xOrigin;
         float m_yOrigin;
         float m_zoom;
+        unsigned int m_currPlayerId;
+        bool m_playerIDSet;
     private:
 };
 

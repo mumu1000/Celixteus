@@ -16,7 +16,7 @@ SolarSys::SolarSys(Galaxy* galaxy, unsigned int solarSysSize)
     for (unsigned int x = 0; x != solarSysSize ; x++)
     {
         std::cout << "Planet numero " << (x+1) << " sur " << solarSysSize << " créée\n";
-        m_planetList.push_back(new Planet(nullptr,this, 5));
+        m_planetList.push_back(nullptr);
     }
     std::cout << "Création d'un SolarSys contenant " << (m_planetList.size()) << " Planet terminée\n";
 }
@@ -24,6 +24,14 @@ SolarSys::SolarSys(Galaxy* galaxy, unsigned int solarSysSize)
 SolarSys::~SolarSys()
 {
 
+}
+
+void SolarSys::genPlanet(unsigned int generatingPlayerId, unsigned int planetId)
+{
+    if ((planetId<m_planetList.size()) && (m_planetList[planetId] == nullptr))
+    {
+        m_planetList[planetId] = new Planet(getUniverse()->getPlayerPresOfId(generatingPlayerId),this,5);
+    }
 }
 
 Universe* SolarSys::getUniverse()

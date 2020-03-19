@@ -6,14 +6,14 @@
 class Tile;
 class SolarSys;
 class PlanetView;
-class Player;
+class PlayerPresence;
 class Universe;
 class Planet
 {
     public:
         friend PlanetView;
-        Planet(Player* owner, SolarSys* solarSys);
-        Planet(Player* owner, SolarSys* solarSys, unsigned int planetSize);
+        Planet(PlayerPresence* owner, SolarSys* solarSys);
+        Planet(PlayerPresence* owner, SolarSys* solarSys, unsigned int planetSize);
         virtual ~Planet();
         void draw(float xOrigin, float yOrigin, float zoom);
         void update();
@@ -25,7 +25,7 @@ class Planet
 
     protected:
         std::vector<Tile*> m_tileList;
-        Player* m_owner;
+        PlayerPresence* m_owner;
         SolarSys* m_solarSys;
     private:
 };

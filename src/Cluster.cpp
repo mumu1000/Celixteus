@@ -17,7 +17,7 @@ Cluster::Cluster(SuperCluster* superCluster, unsigned int clusterSize)
     for (unsigned int x = 0; x != clusterSize ; x++)
     {
         std::cout << "Galaxy numero " << (x+1) << " sur " << clusterSize << " créée\n";
-        m_galaxyList.push_back(new Galaxy(this, 5));
+        m_galaxyList.push_back(nullptr);
     }
     std::cout << "Création d'un Cluster contenant " << (m_galaxyList.size()) << " Galaxy terminée\n";
 }
@@ -25,6 +25,14 @@ Cluster::Cluster(SuperCluster* superCluster, unsigned int clusterSize)
 Cluster::~Cluster()
 {
 
+}
+
+void Cluster::genGalaxy(unsigned int generatingPlayerId, unsigned int galaxyId)
+{
+    if ((galaxyId<m_galaxyList.size()) && (m_galaxyList[galaxyId] == nullptr))
+    {
+        m_galaxyList[galaxyId] = new Galaxy(this,5);
+    }
 }
 
 Universe* Cluster::getUniverse()

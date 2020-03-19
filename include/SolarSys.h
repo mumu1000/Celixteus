@@ -13,6 +13,7 @@ class SolarSys
         SolarSys(Galaxy* galaxy);
         SolarSys(Galaxy* galaxy, unsigned int solarSysSize);
         virtual ~SolarSys();
+        void genPlanet(unsigned int generatingPlayerId, unsigned int planetId);  //IDEMPOTENT FUNCTION, DOES NOTHING IF TARGET IS ALREADY GENERATED (aka vector at index not nullptr)
         void update();
         Universe* getUniverse();
         Planet& operator[](unsigned int i);
