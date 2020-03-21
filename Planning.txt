@@ -18,3 +18,6 @@ There will be an enterBuilding Method (need to define it's context maybe on GUI)
 About CBD, need to decide later might need a Planet function UpdateFieldBonuses
 
 The only Bonus Holders Are: PlayerPresences(Research)  Universes(Granted by generating Player's Master Level)   CBDs and Consumables Effects
+
+Need to implement a switchOwner function in planet and in tile and tileplaceables to properly switch the planet from one player to another without messing things up (and to be able to store only one reference to a PlaerPresence, stored in Planet)
+
