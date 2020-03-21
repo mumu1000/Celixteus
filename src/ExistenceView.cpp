@@ -45,7 +45,10 @@ AbstractView* ExistenceView::draw()
         std::vector<std::pair<std::string,unsigned int>> options;
 
         options.push_back(std::make_pair("Create New Player and Select It",0));
-        options.push_back(std::make_pair("Select a Player",1));
+        if (m_targetExistence->m_playerList.size()>0)
+        {
+            options.push_back(std::make_pair("Select a Player",1));
+        }
         options.push_back(std::make_pair("Goto Universe",2));
         if (m_playerIDSet)
         {

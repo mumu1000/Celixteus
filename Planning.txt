@@ -1,0 +1,20 @@
+Tiles will have a pointer to an AbstractTilePlaceable Object (either null or a building)
+
+
+Tiles will have a build method. Means that initial building costs will be held by Tile. Time doesnt have to be supported by Tile, and will be
+There will be 3 Upgrade paths in AbstractTilePlaceable, redefined by each TilePlaceables
+There will be a BuildingID value on each type of Building, supported by each Building instance, it will be an Enum of each building type.
+
+
+
+Tile and AbstractTilePlaceable and all TilePlaceables will have an Update, a collect, an Upgrade(path1, path2, path3, level1, level2, level3) , an UpgardeToLevel(path1, path2, path3, level1, level2, level3) an EnterBuilding function all virtual
+
+
+PlanetViews will hold a Vector called Selection which stores pointers to tiles
+There will be methods to select (sort) tiles based on their building type and put them in the selection vector
+
+There will be an enterBuilding Method (need to define it's context maybe on GUI) IDEA : specialAction virtual Function, called with an ID meaning different things on different buildings (starport mainly) with actions id.
+
+About CBD, need to decide later might need a Planet function UpdateFieldBonuses
+
+The only Bonus Holders Are: PlayerPresences(Research)  Universes(Granted by generating Player's Master Level)   CBDs and Consumables Effects
