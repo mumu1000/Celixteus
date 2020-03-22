@@ -32,6 +32,11 @@ bool Tile::build(AbstractTilePlaceable::BuildingType type)
     }
 }
 
+bool Tile::upgrade(std::tuple<int,int,int> levels)
+{
+    if (m_tileContent == nullptr) {return false;}
+    return m_tileContent->upgrade(levels);
+}
 
 void Tile::update()
 {

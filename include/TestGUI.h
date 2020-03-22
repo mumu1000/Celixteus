@@ -21,11 +21,16 @@ namespace TestGUI
     ALLEGRO_EVENT_QUEUE* mainEventQueue;
     std::unordered_map<std::string, int>* keyConfig;
     unsigned int fontHeight;
-    unsigned int linePadding;
+    unsigned int linePadding = 0;
+    unsigned int sliderHorPadd = 2;
     ALLEGRO_EVENT waitInput();
     int waitKeyboardInput();
     unsigned int DISPLAY_WIDTH = 1920;
     unsigned int DISPLAY_HEIGHT = 1080;
+
+    void sliders(std::vector<std::pair<std::string,int>>& options, bool canBeNegative);
+
+
     template<typename T>
     T& menu(std::vector<std::pair<std::string,T>>& options);
 

@@ -2,6 +2,7 @@
 
 PlayerPresence::PlayerPresence()
 {
+    m_credits= 100;
     m_pickaxe = 0;
     m_minerals = 15;
     m_mineralCap = 50;
@@ -12,6 +13,42 @@ PlayerPresence::~PlayerPresence()
 {
     //dtor
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//ACCESSORS
+
+
+void PlayerPresence::addCredits(unsigned long long toBeAdded)
+{
+    if (m_credits+toBeAdded < m_credits){m_credits = (((unsigned long long)0)-(unsigned long long)1);} else {m_credits += toBeAdded;}
+}
+
+void PlayerPresence::setCredits(unsigned long long toBeSet)
+{
+    m_credits = toBeSet;
+}
+
+bool PlayerPresence::subCredits(unsigned long long toBeSubbed)
+{
+    if (toBeSubbed > m_credits) {return false;}
+    m_credits -= toBeSubbed;
+    return true;
+}
+
 
 void PlayerPresence::addMinerals(unsigned long long toBeAdded)
 {
@@ -32,6 +69,7 @@ bool PlayerPresence::subMinerals(unsigned long long toBeSubbed)
     return true;
 }
 
+
 void PlayerPresence::addMineralCap(unsigned long long toBeAdded)
 {
     if (m_mineralCap+toBeAdded < m_mineralCap){m_mineralCap = (((unsigned long long)0)-(unsigned long long)1);} else {m_mineralCap += toBeAdded;}
@@ -48,6 +86,7 @@ bool PlayerPresence::subMineralCap(unsigned long long toBeSubbed)
     m_mineralCap -= toBeSubbed;
     return true;
 }
+
 
 void PlayerPresence::addEnergy(unsigned long long toBeAdded)
 {

@@ -13,6 +13,7 @@ class AbstractTilePlaceable
         virtual void update()=0;
         BuildingType getType(){return m_type;};
         std::tuple<int,int,int> getLevels(){return m_levels;};
+        virtual bool upgrade(std::tuple<int,int,int> levels)=0;
 
     protected:
         std::tuple<int,int,int> m_levels;

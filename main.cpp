@@ -50,13 +50,13 @@ int main(int argc, char **argv)
 */
 
 
-    std::vector<std::pair<std::string,unsigned int>> options;
-    for (unsigned int i = 1; i<=1000; i++)
+    std::vector<std::pair<std::string,int>> options;
+    for (int i = 0; i<=1000; i++)
     {
         std::string temp1 = "Choice " + std::to_string(i);
         options.push_back(std::make_pair(temp1,i));
     }
-    TestGUI::menu(options);
+    TestGUI::sliders(options, false);
     Existence& testExistence = *(new Existence());
     int player = testExistence.newPlayer();
     testExistence.genUniverse(player);

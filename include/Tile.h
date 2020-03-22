@@ -16,6 +16,7 @@ class Tile
 
         void update();
         bool build(AbstractTilePlaceable::BuildingType type);
+        bool upgrade(std::tuple<int,int,int> levels);
 
         Planet* getPlanet(){return m_planet;};
 

@@ -8,19 +8,7 @@
 #include "AbstractView.h"
 
 
-void TestGUI::info(std::string& toDisplay)
-{
-    using namespace TestGUI;
-    al_clear_to_color(al_map_rgb(0,0,20));
-    al_draw_multiline_text(basicFont,basicTextColor, 20, 20, DISPLAY_WIDTH - 40,fontHeight + linePadding, 0,toDisplay.c_str());
-    al_flip_display();
-    ALLEGRO_EVENT inputRecv;
-    do
-    {
-        inputRecv =waitInput();
-    }
-    while(!(inputRecv.type == ALLEGRO_EVENT_KEY_DOWN && inputRecv.keyboard.keycode == keyConfig->find("VALIDATE")->second ) && !(inputRecv.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN));
-}
+
 
 
 bool TestGUI::initialize()
@@ -46,7 +34,6 @@ bool TestGUI::initialize()
     using namespace TestGUI;
     basicFont = al_load_ttf_font("./FFF_Tusj.ttf",20,0);
     fontHeight = al_get_font_line_height(basicFont);
-    linePadding = 0;
     basicTextColor = al_map_rgb(255,255,255);
     mainEventQueue = al_create_event_queue();
     al_register_event_source(mainEventQueue,al_get_keyboard_event_source());
@@ -60,6 +47,8 @@ bool TestGUI::initialize()
 
     (*keyConfig)["UP"] = 0;
     (*keyConfig)["DOWN"] = 0;
+    (*keyConfig)["LEFT"] = 0;
+    (*keyConfig)["RIGHT"] = 0;
     (*keyConfig)["VALIDATE"] = 0;
 
 
@@ -79,7 +68,21 @@ bool TestGUI::initialize()
     return true;
 }
 
-
+bool TestGUI::shutDown()
+{
+    using namespace TestGUI;
+    //al_ungrab_mouse();
+    al_uninstall_keyboard();
+    al_uninstall_mouse();
+    al_destroy_display(alConcreteDisplay);
+    al_destroy_font(basicFont);
+    al_destroy_event_queue(mainEventQueue);
+    al_set_target_bitmap(nullptr);
+    al_shutdown_primitives_addon();
+    al_shutdown_font_addon();
+    delete keyConfig;
+    return true;
+}
 
 void TestGUI::enterGUI(AbstractView* enteringView)
 {
@@ -96,22 +99,151 @@ void TestGUI::enterGUI(AbstractView* enteringView)
 }
 
 
-
-bool TestGUI::shutDown()
+void TestGUI::info(std::string& toDisplay)
 {
     using namespace TestGUI;
-    //al_ungrab_mouse();
-    al_uninstall_keyboard();
-    al_uninstall_mouse();
-    al_destroy_display(alConcreteDisplay);
-    al_destroy_font(basicFont);
-    al_destroy_event_queue(mainEventQueue);
-    al_set_target_bitmap(nullptr);
-    al_shutdown_primitives_addon();
-    al_shutdown_font_addon();
-    delete keyConfig;
-    return true;
+    al_clear_to_color(al_map_rgb(0,0,20));
+    al_draw_multiline_text(basicFont,basicTextColor, 20, 20, DISPLAY_WIDTH - 40,fontHeight + linePadding, 0,toDisplay.c_str());
+    al_flip_display();
+    ALLEGRO_EVENT inputRecv;
+    do
+    {
+        inputRecv =waitInput();
+    }
+    while(!(inputRecv.type == ALLEGRO_EVENT_KEY_DOWN && inputRecv.keyboard.keycode == keyConfig->find("VALIDATE")->second ) && !(inputRecv.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN));
 }
+
+
+void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool canBeNegative)
+{
+    using namespace TestGUI;
+    bool validate = false;
+    ALLEGRO_EVENT inputEvent;
+    unsigned int current = 0;
+    const unsigned int maxperscreen = (DISPLAY_HEIGHT-40) / (fontHeight + linePadding) -1; //-1 to fit the validate option
+    do {
+        unsigned int lbegin = current - (current%maxperscreen);
+        unsigned int offset = current-(current%maxperscreen);
+        unsigned int lend = maxperscreen + current - (current%maxperscreen);
+        al_clear_to_color(al_map_rgb(0,0,20));
+        al_draw_text(basicFont,basicTextColor, 20, 20, 0,"Click Here or Press :VALIDATE: to Validate.");
+        for (unsigned int i = lbegin; i<options.size() && i<lend ;i++)
+        {
+            unsigned int vertPos = 20+((i-offset+1)*(fontHeight + linePadding)); //The +1 is to fit the validate Option
+            if (i == current) {al_draw_filled_circle(10,vertPos+(fontHeight/2),5,basicTextColor);}
+            unsigned int horPadding = 20;
+            if( canBeNegative || options[i].second > 0)
+            {
+                al_draw_text(basicFont,basicTextColor, horPadding, vertPos, 0,"<");
+            }
+            horPadding += al_get_text_width(basicFont,"<")+sliderHorPadd;
+            std::string number = std::to_string(options[i].second);
+            al_draw_text(basicFont,basicTextColor, horPadding, vertPos, 0,number.c_str());
+            horPadding += al_get_text_width(basicFont,number.c_str())+sliderHorPadd;
+            al_draw_text(basicFont,basicTextColor, horPadding, vertPos, 0,">");
+            horPadding += al_get_text_width(basicFont,">")+sliderHorPadd;
+
+            al_draw_text(basicFont,basicTextColor, horPadding, vertPos, 0,options[i].first.c_str());
+        }
+        if (lbegin != 0  || lend < options.size()-1)
+        {
+            al_draw_filled_triangle(5, 13, 15, 13, 10, 5, basicTextColor);
+            al_draw_filled_triangle(5, DISPLAY_HEIGHT - 13, 15, DISPLAY_HEIGHT - 13, 10, DISPLAY_HEIGHT - 5, basicTextColor) ;
+        }
+
+        al_flip_display();
+        inputEvent = waitInput();
+        if (inputEvent.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+            int lastKey = inputEvent.keyboard.keycode;
+            if (lastKey == keyConfig->find("UP")->second)
+            {
+                if (current == 0)
+                {
+                    current = options.size();
+                }
+                current--;
+            }
+            if (lastKey == keyConfig->find("DOWN")->second)
+            {
+                current++;
+                if (current == options.size())
+                {
+                    current = 0;
+                }
+            }
+            if (lastKey == keyConfig->find("LEFT")->second)
+            {
+                if( canBeNegative || options[current].second > 0)
+                {
+                    options[current].second--;
+                }
+            }
+            if (lastKey == keyConfig->find("RIGHT")->second)
+            {
+                options[current].second++;
+            }
+            if (lastKey == keyConfig->find("VALIDATE")->second)
+            {
+                validate = true;
+            }
+        }
+        if (inputEvent.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+        {
+            int yClicked = inputEvent.mouse.y;
+            int xClicked = inputEvent.mouse.x;
+            int yBegin = 20+fontHeight+linePadding;
+            int yEnd = yBegin + (maxperscreen*(fontHeight + linePadding));
+            unsigned int itemClicked = ((yClicked-yBegin) / (fontHeight + linePadding))+offset;
+            if (yClicked >= yBegin && yClicked < yEnd && itemClicked >= 0 && itemClicked < options.size())
+            {
+                current = itemClicked;
+                const int minusMinX = 20;
+                const int minusMaxX = minusMinX + al_get_text_width(basicFont,"<");
+                const std::string number = std::to_string(options[current].second);
+                const int plusMinX = minusMaxX + 2*sliderHorPadd + al_get_text_width(basicFont,number.c_str());
+                const int plusMaxX = plusMinX + al_get_text_width(basicFont,">");
+                if (xClicked >= minusMinX && xClicked < minusMaxX)
+                {
+                    if( canBeNegative || options[current].second > 0)
+                    {
+                        options[current].second--;
+                    }
+                }
+                if (xClicked >= plusMinX && xClicked < plusMaxX)
+                {
+                    options[current].second++;
+                }
+            }
+            if (yClicked < 20 && (lbegin != 0 || lend < options.size()-1))
+            {
+                if (lbegin == 0)
+                {
+                    current = options.size()-1;
+                }
+                else
+                {
+                    current = offset -1;
+                }
+            }
+            if (yClicked >= 20 && yClicked < yBegin){validate=true;}
+            if (yClicked >= yEnd && (lbegin != 0 || lend < options.size()-1))
+            {
+                if (lend >= options.size()-1)
+                {
+                    current = 0;
+                }
+                else
+                {
+                    current = offset+maxperscreen;
+                }
+            }
+        }
+    }while(!validate);
+}
+
+
+
 
 ALLEGRO_EVENT TestGUI::waitInput()
 {
