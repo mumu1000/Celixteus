@@ -3,3 +3,5 @@ bin/
 originfile
 srcViewCodeGen.sh
 testfile
+cscope.out
+Celixteus.cscope_file_list

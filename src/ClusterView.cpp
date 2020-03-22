@@ -30,7 +30,6 @@ AbstractView* ClusterView::draw()
         return this;
     }
 
-
     bool quit = false;
     do
     {
@@ -43,7 +42,7 @@ AbstractView* ClusterView::draw()
         }
         options.push_back(std::make_pair("List Galaxies",2));
         options.push_back(std::make_pair("Return",3));
-        unsigned int response = menu(options);
+        unsigned int response = menu<unsigned int>(options);
         switch(response)
         {
         case 0:

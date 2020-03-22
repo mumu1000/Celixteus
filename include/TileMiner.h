@@ -9,7 +9,6 @@ class TileMiner : public AbstractTilePlaceable
     public:
         TileMiner(Tile* slot);
         virtual ~TileMiner();
-        virtual void draw(float xOrigin, float yOrigin, float zoom, unsigned int xPos, unsigned int yPos);
         virtual void update();
 
     protected:

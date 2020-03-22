@@ -1,22 +1,22 @@
 #ifndef ABSTRACTTILEPLACEABLE_H
 #define ABSTRACTTILEPLACEABLE_H
-#include "Tile.h"
-#include "Planet.h"
-#include "SolarSys.h"
-#include "Galaxy.h"
-#include "Cluster.h"
-#include "SuperCluster.h"
-#include "Universe.h"
+#include <tuple>
 
 class Tile;
 class AbstractTilePlaceable
 {
     public:
+
+        enum BuildingType { Nothing ,Miner }; //"Nothing" is here to implement a value for the no action statement. It should not name a real building type.
         AbstractTilePlaceable(Tile* slot);
         virtual ~AbstractTilePlaceable();
-        virtual void draw(float xOrigin, float yOrigin, float zoom, unsigned int xPos, unsigned int yPos)=0;
         virtual void update()=0;
+        BuildingType getType(){return m_type;};
+        std::tuple<int,int,int> getLevels(){return m_levels;};
+
     protected:
+        std::tuple<int,int,int> m_levels;
+        BuildingType m_type;
         Tile* m_slot;
         unsigned long long m_lastTickUpdated;
     private:

@@ -19,8 +19,7 @@ Planet::Planet(PlayerPresence* owner, SolarSys* solarSys, unsigned int planetSiz
     {
         for (unsigned int y = 0; y != planetSize ; y++)
         {
-            std::cout << "Tile numero " << (x*planetSize+y+1) << " sur " << (planetSize*planetSize) << " créée\n";
-            m_tileList.push_back(new Tile(m_owner,this,x,y));
+            m_tileList.push_back(new Tile(this,x,y));
         }
     }
 
@@ -32,14 +31,7 @@ Planet::~Planet()
     std::cout << "Planet Detruite\n";
 }
 
-void Planet::draw(float xOrigin, float yOrigin, float zoom)
-{
-    std::cout << "Je suis en train de dessiner une planete\n";
-    for (unsigned int i = 0; i != m_tileList.size() ;i++ )
-    {
-        m_tileList[i]->draw(xOrigin, yOrigin, zoom);
-    }
-}
+
 
 Universe* Planet::getUniverse()
 {

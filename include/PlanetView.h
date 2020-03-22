@@ -2,8 +2,10 @@
 #define PLANETVIEW_H
 
 #include "AbstractView.h"
+#include <vector>
+#include <string>
 
-
+class Tile;
 class Planet;
 class PlanetView : public AbstractView
 {
@@ -18,6 +20,11 @@ class PlanetView : public AbstractView
         float m_zoom;
         unsigned int m_currPlayerId;
         bool m_playerIDSet;
+        std::vector<Tile*> m_selection;
+        std::string DescTile(Tile* tileToDesc);
+        bool isSelected(Tile* toTest);
+        bool isSelected(unsigned int idToTest);
+        void displaySelected();
     private:
 };
 

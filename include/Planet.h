@@ -15,13 +15,12 @@ class Planet
         Planet(PlayerPresence* owner, SolarSys* solarSys);
         Planet(PlayerPresence* owner, SolarSys* solarSys, unsigned int planetSize);
         virtual ~Planet();
-        void draw(float xOrigin, float yOrigin, float zoom);
         void update();
         Universe* getUniverse();
         Tile& operator[](unsigned int i);
         unsigned int size(){return m_tileList.size();};
         SolarSys* getSolarSys(){return m_solarSys;};
-
+        PlayerPresence* getOwner(){return m_owner;};
 
     protected:
         std::vector<Tile*> m_tileList;

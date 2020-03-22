@@ -9,13 +9,16 @@
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
 #include <random>
-#define DISPLAY_WIDTH 1920
-#define DISPLAY_HEIGHT 1080
 #include "Existence.h"
 #include "ExistenceView.h"
 #include "Planet.h"
 #include "PlanetView.h"
+#include "Universe.h"
 #include "UniverseView.h"
+#include "SuperCluster.h"
+#include "Cluster.h"
+#include "Galaxy.h"
+#include "SolarSys.h"
 #include <ctime>
 #include "Player.h"
 #include "TestGUI.h"
@@ -45,14 +48,31 @@ int main(int argc, char **argv)
     unsigned int menuResult = TestGUI::menu(choices);
     std::cout << "You chose option " << menuResult << " : " << choices[menuResult] << "\n";
 */
-    Existence* testExistence = new Existence();
-    ExistenceView* testExistenceView = new ExistenceView(testExistence);
-    TestGUI::enterGUI(testExistenceView);
+
+
+    std::vector<std::pair<std::string,unsigned int>> options;
+    for (unsigned int i = 1; i<=1000; i++)
+    {
+        std::string temp1 = "Choice " + std::to_string(i);
+        options.push_back(std::make_pair(temp1,i));
+    }
+    TestGUI::menu(options);
+    Existence& testExistence = *(new Existence());
+    int player = testExistence.newPlayer();
+    testExistence.genUniverse(player);
+    testExistence[0].genSuperCluster(player,0);
+    testExistence[0][0].genCluster(player,0);
+    testExistence[0][0][0].genGalaxy(player,0);
+    testExistence[0][0][0][0].genSolarSys(player,0);
+    testExistence[0][0][0][0][0].genPlanet(player,0);
+
+
+    PlanetView* testPlanetView = new PlanetView(&(testExistence[0][0][0][0][0][0]),player,true);
+    TestGUI::enterGUI(testPlanetView);
     //delete testExistence;
 
     TestGUI::shutDown();
     //al_destroy_display(alConcreteDisplay);
-    al_shutdown_primitives_addon();
-    al_shutdown_font_addon();
+
     return 0;
 }

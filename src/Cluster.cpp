@@ -16,7 +16,6 @@ Cluster::Cluster(SuperCluster* superCluster, unsigned int clusterSize)
     m_galaxyList.reserve( clusterSize );
     for (unsigned int x = 0; x != clusterSize ; x++)
     {
-        std::cout << "Galaxy numero " << (x+1) << " sur " << clusterSize << " créée\n";
         m_galaxyList.push_back(nullptr);
     }
     std::cout << "Création d'un Cluster contenant " << (m_galaxyList.size()) << " Galaxy terminée\n";

@@ -3,6 +3,8 @@
 #include "TestGUI.h"
 #include "SolarSys.h"
 #include "GalaxyView.h"
+#include "Planet.h"
+#include "Universe.h"
 #include <iostream>
 
 SolarSysView::SolarSysView(SolarSys* targetSolarSys, unsigned int currPlayerId, bool playerIDSet)
@@ -36,9 +38,9 @@ AbstractView* SolarSysView::draw()
     {
         std::vector<std::pair<std::string,unsigned int>> options;
 
-        options.push_back(std::make_pair("Goto Planet",0));
         if (m_playerIDSet)
         {
+            options.push_back(std::make_pair("Goto Planet",0));
             options.push_back(std::make_pair("Generate Planet",1));
         }
         options.push_back(std::make_pair("List Planets",2));
@@ -51,7 +53,7 @@ AbstractView* SolarSysView::draw()
                 std::vector<std::pair<std::string,unsigned int>> optionsPlanet;
                 for (unsigned int i = 0; i<m_targetSolarSys->m_planetList.size();i++)
                 {
-                    if (m_targetSolarSys->m_planetList[i] != nullptr)
+                    if (&(*m_targetSolarSys)[i] != nullptr && ((*m_targetSolarSys)[i]).getOwner() == m_targetSolarSys->getUniverse()->getPlayerPresOfId(m_currPlayerId))
                     {
                         const std::string temp1 = "Planet ";
                         std::string temp2 = std::to_string(i);
