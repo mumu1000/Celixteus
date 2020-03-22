@@ -55,8 +55,11 @@ T& TestGUI::menu(std::vector<std::pair<std::string,T>>& options)
             if (i == current) {al_draw_filled_circle(10,(20+(fontHeight/2)+((i-offset)*(fontHeight + linePadding))),5,basicTextColor);}
             al_draw_text(basicFont,basicTextColor, 20, 20+((i-offset)*(fontHeight + linePadding)), 0,options[i].first.c_str());
         }
-        if (lbegin != 0){ al_draw_filled_triangle(5, 13, 15, 13, 10, 5, basicTextColor) ;}
-        if (lend < options.size()-1){ al_draw_filled_triangle(5, DISPLAY_HEIGHT - 13, 15, DISPLAY_HEIGHT - 13, 10, DISPLAY_HEIGHT - 5, basicTextColor) ;}
+        if (lbegin != 0  || lend < options.size()-1)
+        {
+            al_draw_filled_triangle(5, 13, 15, 13, 10, 5, basicTextColor);
+            al_draw_filled_triangle(5, DISPLAY_HEIGHT - 13, 15, DISPLAY_HEIGHT - 13, 10, DISPLAY_HEIGHT - 5, basicTextColor) ;
+        }
 
 
         al_flip_display();
@@ -88,10 +91,36 @@ T& TestGUI::menu(std::vector<std::pair<std::string,T>>& options)
         if (inputEvent.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
         {
             int yClicked = inputEvent.mouse.y;
-            unsigned int itemClicked = ((yClicked-20) / (fontHeight + linePadding))+offset;
-            if (yClicked >= 20 && yClicked < (int)(20+(maxperscreen*(fontHeight + linePadding))) && itemClicked >= 0 && itemClicked < options.size()){current = itemClicked;validate = true; }
-            if (yClicked < 20 && lbegin != 0){current = offset-1;}
-            if (yClicked >= (int)(20+(maxperscreen*(fontHeight + linePadding))) && lend < options.size()-1){current = offset+maxperscreen;}
+            int yBegin = 20;
+            int yEnd = yBegin + (maxperscreen*(fontHeight + linePadding));
+            unsigned int itemClicked = ((yClicked-yBegin) / (fontHeight + linePadding))+offset;
+            if (yClicked >= yBegin && yClicked < yEnd && itemClicked >= 0 && itemClicked < options.size())
+            {
+                current = itemClicked;
+                validate = true;
+            }
+            if (yClicked < 20 && (lbegin != 0 || lend < options.size()-1))
+            {
+                if (lbegin == 0)
+                {
+                    current = options.size()-1;
+                }
+                else
+                {
+                    current = offset -1;
+                }
+            }
+            if (yClicked >= yEnd && (lbegin != 0 || lend < options.size()-1))
+            {
+                if (lend >= options.size()-1)
+                {
+                    current = 0;
+                }
+                else
+                {
+                    current = offset+maxperscreen;
+                }
+            }
         }
     }while(!validate);
     return options[current].second;

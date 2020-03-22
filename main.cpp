@@ -57,6 +57,7 @@ int main(int argc, char **argv)
         options.push_back(std::make_pair(temp1,i));
     }
     TestGUI::sliders(options, false);
+    TestGUI::menu(options);
     Existence& testExistence = *(new Existence());
     int player = testExistence.newPlayer();
     testExistence.genUniverse(player);
