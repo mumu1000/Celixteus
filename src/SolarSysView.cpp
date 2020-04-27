@@ -1,10 +1,11 @@
 #include "SolarSysView.h"
 #include "PlanetView.h"
 #include "TestGUI.h"
+#include "PlayerGUI.h"
+#include "Universe.h"
 #include "SolarSys.h"
 #include "GalaxyView.h"
 #include "Planet.h"
-#include "Universe.h"
 #include <iostream>
 
 SolarSysView::SolarSysView(SolarSys* targetSolarSys, unsigned int currPlayerId, bool playerIDSet)
@@ -24,11 +25,11 @@ SolarSysView::~SolarSysView()
 
 AbstractView* SolarSysView::draw()
 {
-    using namespace TestGUI;
+    using namespace PlayerGUI;
     if (m_targetSolarSys == nullptr)
     {
         std::string towrite = "Broken SolarSysView: Pointed SolarSys is nullptr\nReturning.";
-        info(towrite);
+        TestGUI::info(towrite);
         return this;
     }
 
@@ -45,7 +46,7 @@ AbstractView* SolarSysView::draw()
         }
         options.push_back(std::make_pair("List Planets",2));
         options.push_back(std::make_pair("Return",3));
-        unsigned int response = menu(options);
+        unsigned int response = menu(options,m_targetSolarSys->getUniverse()->getPlayerPresOfId(m_currPlayerId));
         switch(response)
         {
         case 0:
@@ -61,7 +62,7 @@ AbstractView* SolarSysView::draw()
                     }
                 }
                 optionsPlanet.push_back(std::make_pair("Return",m_targetSolarSys->m_planetList.size()));
-                unsigned int selectedPlanet = menu(optionsPlanet);
+                unsigned int selectedPlanet = menu(optionsPlanet,m_targetSolarSys->getUniverse()->getPlayerPresOfId(m_currPlayerId));
                 if (selectedPlanet==m_targetSolarSys->m_planetList.size()) {break;}
                 PlanetView* planetView = new PlanetView(&(*m_targetSolarSys)[selectedPlanet],m_currPlayerId,m_playerIDSet);
                 return planetView;
@@ -81,7 +82,7 @@ AbstractView* SolarSysView::draw()
 
                 }
                 optionsPlanet.push_back(std::make_pair("Return",m_targetSolarSys->m_planetList.size()));
-                unsigned int selectedPlanet = menu(optionsPlanet);
+                unsigned int selectedPlanet = menu(optionsPlanet,m_targetSolarSys->getUniverse()->getPlayerPresOfId(m_currPlayerId));
                 if (selectedPlanet==m_targetSolarSys->m_planetList.size()) {break;}
                 m_targetSolarSys->genPlanet(m_currPlayerId,selectedPlanet);
                 break;
@@ -94,7 +95,7 @@ AbstractView* SolarSysView::draw()
                     if (m_targetSolarSys->m_planetList[i] != nullptr)
                     toWrite = toWrite + "Planet " + std::to_string(i) + "\n";
                 }
-                info(toWrite);
+                TestGUI::info(toWrite);
                 break;
             }
         case 3:

@@ -1,17 +1,19 @@
-#ifndef TILEMINER_H
-#define TILEMINER_H
+#ifndef TILEENERGYCOLL_H
+#define TILEENERGYCOLL_H
 
 #include "AbstractTilePlaceable.h"
-
 class PlayerPresence;
 class Tile;
-class TileMiner : public AbstractTilePlaceable
+class TileEnergyColl : public AbstractTilePlaceable
 {
     public:
-        TileMiner(Tile* slot);
-        virtual ~TileMiner();
+        TileEnergyColl(Tile* slot);
+        virtual ~TileEnergyColl();
         virtual void update();
         bool upgrade(std::tuple<int,int,int> levels);
+
+
+
 
         bool isAffordable(std::tuple<int,int,int> levels);
         unsigned long long calculateUpgradeTime(std::tuple<int,int,int> levels);
@@ -22,7 +24,6 @@ class TileMiner : public AbstractTilePlaceable
 
     protected:
 
-
         unsigned long long m_crystProduction;
         unsigned long long m_crystStored;
         unsigned long long m_maxCrystStorage;
@@ -30,4 +31,4 @@ class TileMiner : public AbstractTilePlaceable
     private:
 };
 
-#endif // TILEMINER_H
+#endif // TILEENERGYCOLL_H

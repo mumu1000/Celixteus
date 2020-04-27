@@ -1,5 +1,7 @@
 #include "Tile.h"
 #include "TileMiner.h"
+#include "TileEnergyColl.h"
+#include "TileOreStorage.h"
 #include <iostream>
 Tile::Tile(Planet* planet)
 {
@@ -28,6 +30,8 @@ bool Tile::build(AbstractTilePlaceable::BuildingType type)
     switch(type)
     {
         case AbstractTilePlaceable::Miner : m_tileContent = new TileMiner(this);return true;break;
+        case AbstractTilePlaceable::EnergyColl : m_tileContent = new TileEnergyColl(this);return true;break;
+        case AbstractTilePlaceable::OreStorage : m_tileContent = new TileOreStorage(this);return true;break;
         default : std::cout << "Tumfaisconstruirenimp\n";return false;break;
     }
 }

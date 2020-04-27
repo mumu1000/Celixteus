@@ -1,15 +1,16 @@
 #include "ExistenceView.h"
 #include "TestGUI.h"
+#include "PlayerGUI.h"
 #include <string>
 #include "UniverseView.h"
+#include "Existence.h"
 ExistenceView::ExistenceView(Existence* targetExistence)
 {
     m_targetExistence = targetExistence;
     m_xOrigin = 0.0;
     m_yOrigin = 0.0;
     m_zoom = 0.0;
-    m_currPlayerId = 0;
-    m_playerIDSet = false;
+    resetCurrPlayerID();
 }
 
 ExistenceView::ExistenceView(Existence* targetExistence, unsigned int currPlayerId, bool playerIDSet)
@@ -18,8 +19,14 @@ ExistenceView::ExistenceView(Existence* targetExistence, unsigned int currPlayer
     m_xOrigin = 0.0;
     m_yOrigin = 0.0;
     m_zoom = 0.0;
-    m_currPlayerId = currPlayerId;
-    m_playerIDSet = playerIDSet;
+    if (playerIDSet)
+    {
+        setCurrPlayerID(currPlayerId);
+    }
+    else
+    {
+        resetCurrPlayerID();
+    }
 }
 
 
@@ -30,12 +37,12 @@ ExistenceView::~ExistenceView()
 
 AbstractView* ExistenceView::draw()
 {
-    using namespace TestGUI;
+    using namespace PlayerGUI;
     if (m_targetExistence == nullptr)
     {
         std::string towrite = "Broken Existence View: Pointed existence is nullptr\nReturning.";
-        info(towrite);
-        return this;
+        TestGUI::info(towrite);
+        return nullptr;
     }
 
 
@@ -56,12 +63,11 @@ AbstractView* ExistenceView::draw()
         }
         options.push_back(std::make_pair("List Universes",4));
         options.push_back(std::make_pair("Quit",5));
-        unsigned int response = menu(options);
+        unsigned int response = menu(options,m_targetExistence->getPlayerAtId(m_currPlayerId));
         switch(response)
         {
         case 0:
-            m_currPlayerId = m_targetExistence->newPlayer();
-            m_playerIDSet = true;
+            setCurrPlayerID(m_targetExistence->newPlayer());
             break;
         case 1:
             {
@@ -73,10 +79,11 @@ AbstractView* ExistenceView::draw()
                     optionsPlayer.push_back(std::make_pair(temp1+temp2,i));
                 }
                 optionsPlayer.push_back(std::make_pair("Return",m_targetExistence->m_playerList.size()));
-                unsigned int selectedPlayer = menu(optionsPlayer);
-                if (selectedPlayer==m_targetExistence->m_playerList.size()) {break;}
-                m_currPlayerId = selectedPlayer;
-                m_playerIDSet = true;
+                unsigned int selectedPlayer = TestGUI::menu(optionsPlayer);
+                if (selectedPlayer!=m_targetExistence->m_playerList.size())
+                    {
+                        setCurrPlayerID(selectedPlayer);
+                    }
                 break;
             }
         case 2:
@@ -89,7 +96,7 @@ AbstractView* ExistenceView::draw()
                     optionsUniverse.push_back(std::make_pair(temp1+temp2,i));
                 }
                 optionsUniverse.push_back(std::make_pair("Return",m_targetExistence->m_universeList.size()));
-                unsigned int selectedUniverse = menu(optionsUniverse);
+                unsigned int selectedUniverse = menu(optionsUniverse,m_targetExistence->getPlayerAtId(m_currPlayerId));
                 if (selectedUniverse==m_targetExistence->m_universeList.size()) {break;}
                 UniverseView* universeView = new UniverseView(&(*m_targetExistence)[selectedUniverse],m_currPlayerId,m_playerIDSet);
                 return universeView;
@@ -105,7 +112,7 @@ AbstractView* ExistenceView::draw()
                 {
                     toWrite = toWrite + "Universe " + std::to_string(i) + "\n";
                 }
-                info(toWrite);
+                TestGUI::info(toWrite);
                 break;
             }
         case 5:

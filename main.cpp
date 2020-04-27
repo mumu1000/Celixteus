@@ -22,6 +22,7 @@
 #include <ctime>
 #include "Player.h"
 #include "TestGUI.h"
+#include "PlayerGUI.h"
 
 int main(int argc, char **argv)
 {

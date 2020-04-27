@@ -9,6 +9,7 @@ class Player
         Player();
         virtual ~Player();
         void registerPlayerPresence(PlayerPresence* playerPresence);
+        unsigned int getPPresCount() {return m_playerPresenceList.size();};
 
     protected:
         std::vector<PlayerPresence*> m_playerPresenceList;

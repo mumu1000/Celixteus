@@ -25,6 +25,9 @@ class PlanetView : public AbstractView
         bool isSelected(Tile* toTest);
         bool isSelected(unsigned int idToTest);
         void displaySelected();
+
+        Tile* askTile(bool any, bool mustBeFree);
+        std::tuple<int,int,int> askUpgrade();
     private:
 };
 

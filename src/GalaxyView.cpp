@@ -1,6 +1,8 @@
 #include "GalaxyView.h"
 #include "SolarSysView.h"
 #include "TestGUI.h"
+#include "PlayerGUI.h"
+#include "Universe.h"
 #include "Galaxy.h"
 #include "ClusterView.h"
 #include <iostream>
@@ -22,11 +24,11 @@ GalaxyView::~GalaxyView()
 
 AbstractView* GalaxyView::draw()
 {
-    using namespace TestGUI;
+    using namespace PlayerGUI;
     if (m_targetGalaxy == nullptr)
     {
         std::string towrite = "Broken GalaxyView: Pointed Galaxy is nullptr\nReturning.";
-        info(towrite);
+        TestGUI::info(towrite);
         return this;
     }
 
@@ -43,7 +45,7 @@ AbstractView* GalaxyView::draw()
         }
         options.push_back(std::make_pair("List SolarSyss",2));
         options.push_back(std::make_pair("Return",3));
-        unsigned int response = menu(options);
+        unsigned int response = menu(options,m_targetGalaxy->getUniverse()->getPlayerPresOfId(m_currPlayerId));
         switch(response)
         {
         case 0:
@@ -59,7 +61,7 @@ AbstractView* GalaxyView::draw()
                     }
                 }
                 optionsSolarSys.push_back(std::make_pair("Return",m_targetGalaxy->m_solarSysList.size()));
-                unsigned int selectedSolarSys = menu(optionsSolarSys);
+                unsigned int selectedSolarSys = menu(optionsSolarSys,m_targetGalaxy->getUniverse()->getPlayerPresOfId(m_currPlayerId));
                 if (selectedSolarSys==m_targetGalaxy->m_solarSysList.size()) {break;}
                 SolarSysView* solarSysView = new SolarSysView(&(*m_targetGalaxy)[selectedSolarSys],m_currPlayerId,m_playerIDSet);
                 return solarSysView;
@@ -79,7 +81,7 @@ AbstractView* GalaxyView::draw()
 
                 }
                 optionsSolarSys.push_back(std::make_pair("Return",m_targetGalaxy->m_solarSysList.size()));
-                unsigned int selectedSolarSys = menu(optionsSolarSys);
+                unsigned int selectedSolarSys = menu(optionsSolarSys,m_targetGalaxy->getUniverse()->getPlayerPresOfId(m_currPlayerId));
                 if (selectedSolarSys==m_targetGalaxy->m_solarSysList.size()) {break;}
                 m_targetGalaxy->genSolarSys(m_currPlayerId,selectedSolarSys);
                 break;
@@ -92,7 +94,7 @@ AbstractView* GalaxyView::draw()
                     if (m_targetGalaxy->m_solarSysList[i] != nullptr)
                     toWrite = toWrite + "SolarSys " + std::to_string(i) + "\n";
                 }
-                info(toWrite);
+                TestGUI::info(toWrite);
                 break;
             }
         case 3:

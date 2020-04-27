@@ -39,7 +39,7 @@ void Universe::genSuperCluster(unsigned int generatingPlayerId, unsigned int sCl
 }
 
 
-PlayerPresence* Universe::getPlayerPresOfId(unsigned int id)
+PlayerPresence* Universe::getPlayerPresOfId(unsigned int id) //Player Presence registration occurs only when a call to this function is made with an unregistered player.
 {
     if (id>=m_existence->size()) {return nullptr;}
 
@@ -53,6 +53,7 @@ PlayerPresence* Universe::getPlayerPresOfId(unsigned int id)
     }
     return m_playerPresenceList[id];
 }
+
 
 void Universe::update()
 {

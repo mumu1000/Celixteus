@@ -1,23 +1,23 @@
-#include "TileMiner.h"
+#include "TileOreStorage.h"
 #include "Tile.h"
 #include "Planet.h"
 #include "Universe.h"
 #include "PlayerPresence.h"
 #include <tuple>
 
-TileMiner::TileMiner(Tile* slot) : AbstractTilePlaceable(slot)
+TileOreStorage::TileOreStorage(Tile* slot) : AbstractTilePlaceable(slot)
 {
-    m_levels = std::make_tuple(1,1,0);
-    m_type = AbstractTilePlaceable::Miner;
+    m_levels = std::make_tuple(1,0,0);
+    m_type = AbstractTilePlaceable::OreStorage;
 }
 
-TileMiner::~TileMiner()
+TileOreStorage::~TileOreStorage()
 {
     //dtor
 }
 
 
-void TileMiner::update()
+void TileOreStorage::update()
 {
     if (m_lastTickUpdated >= getUniverseTick()) {return;}
     //UPDATE ACTIONS HERE
@@ -26,7 +26,7 @@ void TileMiner::update()
 }
 
 
-bool TileMiner::upgrade(std::tuple<int,int,int> levels)
+bool TileOreStorage::upgrade(std::tuple<int,int,int> levels)
 {
     if (isAffordable(levels) && getOwner()->subCredits(calculateCost(levels)) )
     {
@@ -39,17 +39,17 @@ bool TileMiner::upgrade(std::tuple<int,int,int> levels)
     return false;
 }
 
-unsigned long long TileMiner::calculateCost(std::tuple<int,int,int> levels)
-{
-    return 1;
-}
-
-unsigned long long TileMiner::calculateUpgradeTime(std::tuple<int,int,int> levels)
+unsigned long long TileOreStorage::calculateCost(std::tuple<int,int,int> levels)
 {
     return 0;
 }
 
-bool TileMiner::isAffordable(std::tuple<int,int,int> levels)
+unsigned long long TileOreStorage::calculateUpgradeTime(std::tuple<int,int,int> levels)
+{
+    return 0;
+}
+
+bool TileOreStorage::isAffordable(std::tuple<int,int,int> levels)
 {
     if (m_slot->getPlanet()->getOwner()->getCredits() >= calculateCost(levels))
     {
@@ -57,11 +57,3 @@ bool TileMiner::isAffordable(std::tuple<int,int,int> levels)
     }
     return false;
 }
-
-
-
-
-
-
-
-

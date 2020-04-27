@@ -1,8 +1,8 @@
 #ifndef EXISTENCEVIEW_H
 #define EXISTENCEVIEW_H
 #include <AbstractView.h>
-#include "Existence.h"
 
+class Existence;
 class ExistenceView : public AbstractView
 {
     public:
@@ -17,6 +17,8 @@ class ExistenceView : public AbstractView
         float m_zoom;
         unsigned int m_currPlayerId;
         bool m_playerIDSet;
+        void setCurrPlayerID(unsigned int id){m_currPlayerId = id;m_playerIDSet = true;};
+        inline void resetCurrPlayerID(){m_playerIDSet = false;};
     private:
 };
 

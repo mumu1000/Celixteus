@@ -18,17 +18,17 @@ bool TestGUI::initialize()
         std::cout<<"It Works\n";
     }else
     {
-        std::cout << "Allegro Not Loaded\n";
+        std::cerr << "Allegro Not Loaded\n";
         exit(0x50000001);
     }
     if(!al_install_keyboard())
     {
-        std::cout<<"Keyboard Installation Failed\n";
+        std::cerr<<"Keyboard Installation Failed\n";
         exit(0x50000002);
     }
     if(!al_install_mouse())
     {
-        std::cout<<"Mouse Installation Failed\n";
+        std::cerr<<"Mouse Installation Failed\n";
         exit(0x50000003);
     }
     using namespace TestGUI;
@@ -113,23 +113,61 @@ void TestGUI::info(std::string& toDisplay)
     while(!(inputRecv.type == ALLEGRO_EVENT_KEY_DOWN && inputRecv.keyboard.keycode == keyConfig->find("VALIDATE")->second ) && !(inputRecv.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN));
 }
 
-
 void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool canBeNegative)
 {
+    const std::string emptyString = "";
+    return TestGUI::sliders(options,canBeNegative,emptyString);
+}
+
+void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool canBeNegative, const std::string& headerStr)
+{
     using namespace TestGUI;
+    unsigned int menuHeigth = DISPLAY_HEIGHT;
+    const unsigned int textHeaderHeight = linePadding;
+    if (headerStr != "")  //Calculating Text Header Height Here
+    {
+        al_do_multiline_text
+        (
+            basicFont ,    // Our font
+            (DISPLAY_WIDTH - 40) , // Padded Screen Width
+            headerStr.c_str() , // Our text header
+            [](int line_num , const char* line , int size , void* extra)
+            {
+                unsigned int* currHeight = (unsigned int*)extra; // We use the "extra" value to get our counter in the lambda function
+                (*currHeight)+= (fontHeight + linePadding); // For each line we increment the counter by one padded line height
+                return true;
+            }, // A counter Lambda function
+            (void*)&textHeaderHeight             // We need to pass a counter value to increment
+        );
+    }
+    const unsigned int goDownHeaderHeight = 20;
+    const unsigned int goUpHeaderHeight = 20;
+    const unsigned int headerHeight = goDownHeaderHeight+textHeaderHeight;
+    const unsigned int footerHeight = goUpHeaderHeight;
+    if (menuHeigth < ((fontHeight + linePadding)*2 + headerHeight + footerHeight))  // Need 2 lines at least + headers, if we dont this menu cant work
+    {
+        std::cerr << "Font too big to display any menu. Please report to Dev\n EXITING\n"; //WE MUST HANDLE THIS BEFORE AND THIS SHOULD NEVER HAPPEN
+        exit(0x50000003);
+    }
+    menuHeigth -= headerHeight;
+    menuHeigth -= footerHeight;
     bool validate = false;
     ALLEGRO_EVENT inputEvent;
     unsigned int current = 0;
-    const unsigned int maxperscreen = (DISPLAY_HEIGHT-40) / (fontHeight + linePadding) -1; //-1 to fit the validate option
+    const unsigned int maxperscreen = menuHeigth / (fontHeight + linePadding) -1; //-1 to fit the validate option
     do {
         unsigned int lbegin = current - (current%maxperscreen);
         unsigned int offset = current-(current%maxperscreen);
         unsigned int lend = maxperscreen + current - (current%maxperscreen);
         al_clear_to_color(al_map_rgb(0,0,20));
-        al_draw_text(basicFont,basicTextColor, 20, 20, 0,"Click Here or Press :VALIDATE: to Validate.");
+        if (headerStr != "")
+        {
+            al_draw_multiline_text(basicFont,basicTextColor, 20, linePadding,(DISPLAY_WIDTH - 40),(fontHeight + linePadding), 0,headerStr.c_str());
+        }
+        al_draw_text(basicFont,basicTextColor, 20, headerHeight, 0,"Click Here or Press :VALIDATE: to Validate.");
         for (unsigned int i = lbegin; i<options.size() && i<lend ;i++)
         {
-            unsigned int vertPos = 20+((i-offset+1)*(fontHeight + linePadding)); //The +1 is to fit the validate Option
+            unsigned int vertPos = headerHeight+((i-offset+1)*(fontHeight + linePadding)); //The +1 is to fit the validate Option
             if (i == current) {al_draw_filled_circle(10,vertPos+(fontHeight/2),5,basicTextColor);}
             unsigned int horPadding = 20;
             if( canBeNegative || options[i].second > 0)
@@ -147,8 +185,8 @@ void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool can
         }
         if (lbegin != 0  || lend < options.size()-1)
         {
-            al_draw_filled_triangle(5, 13, 15, 13, 10, 5, basicTextColor);
-            al_draw_filled_triangle(5, DISPLAY_HEIGHT - 13, 15, DISPLAY_HEIGHT - 13, 10, DISPLAY_HEIGHT - 5, basicTextColor) ;
+            al_draw_filled_triangle(5, (headerHeight - goDownHeaderHeight) + 13, 15, (headerHeight - goDownHeaderHeight) + 13, 10, (headerHeight - goDownHeaderHeight) + 5, basicTextColor);
+            al_draw_filled_triangle(5, headerHeight + menuHeigth + footerHeight - 13, 15, headerHeight + menuHeigth + footerHeight - 13, 10, headerHeight + menuHeigth + footerHeight - 5, basicTextColor) ;
         }
 
         al_flip_display();
@@ -192,7 +230,7 @@ void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool can
         {
             int yClicked = inputEvent.mouse.y;
             int xClicked = inputEvent.mouse.x;
-            int yBegin = 20+fontHeight+linePadding;
+            int yBegin = headerHeight+fontHeight+linePadding;
             int yEnd = yBegin + (maxperscreen*(fontHeight + linePadding));
             unsigned int itemClicked = ((yClicked-yBegin) / (fontHeight + linePadding))+offset;
             if (yClicked >= yBegin && yClicked < yEnd && itemClicked >= 0 && itemClicked < options.size())
@@ -215,7 +253,7 @@ void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool can
                     options[current].second++;
                 }
             }
-            if (yClicked < 20 && (lbegin != 0 || lend < options.size()-1))
+            if ((unsigned int)yClicked < headerHeight && (unsigned int)yClicked >= textHeaderHeight && (lbegin != 0 || lend < options.size()-1))
             {
                 if (lbegin == 0)
                 {
@@ -226,7 +264,7 @@ void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool can
                     current = offset -1;
                 }
             }
-            if (yClicked >= 20 && yClicked < yBegin){validate=true;}
+            if ((unsigned int)yClicked >= headerHeight && yClicked < yBegin){validate=true;}
             if (yClicked >= yEnd && (lbegin != 0 || lend < options.size()-1))
             {
                 if (lend >= options.size()-1)

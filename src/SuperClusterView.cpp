@@ -1,6 +1,8 @@
 #include "SuperClusterView.h"
 #include "ClusterView.h"
 #include "TestGUI.h"
+#include "PlayerGUI.h"
+#include "Universe.h"
 #include "SuperCluster.h"
 #include "UniverseView.h"
 #include <iostream>
@@ -22,11 +24,11 @@ SuperClusterView::~SuperClusterView()
 
 AbstractView* SuperClusterView::draw()
 {
-    using namespace TestGUI;
+    using namespace PlayerGUI;
     if (m_targetSuperCluster == nullptr)
     {
         std::string towrite = "Broken SuperClusterView: Pointed SuperCluster is nullptr\nReturning.";
-        info(towrite);
+        TestGUI::info(towrite);
         return this;
     }
 
@@ -43,7 +45,7 @@ AbstractView* SuperClusterView::draw()
         }
         options.push_back(std::make_pair("List Clusters",2));
         options.push_back(std::make_pair("Return",3));
-        unsigned int response = menu(options);
+        unsigned int response = menu(options,m_targetSuperCluster->m_universe->getPlayerPresOfId(m_currPlayerId));
         switch(response)
         {
         case 0:
@@ -59,7 +61,7 @@ AbstractView* SuperClusterView::draw()
                     }
                 }
                 optionsClust.push_back(std::make_pair("Return",m_targetSuperCluster->m_clusterList.size()));
-                unsigned int selectedCluster = menu(optionsClust);
+                unsigned int selectedCluster = menu(optionsClust,m_targetSuperCluster->m_universe->getPlayerPresOfId(m_currPlayerId));
                 if (selectedCluster==m_targetSuperCluster->m_clusterList.size()) {break;}
                 ClusterView* clusterView = new ClusterView(&(*m_targetSuperCluster)[selectedCluster],m_currPlayerId,m_playerIDSet);
                 return clusterView;
@@ -79,7 +81,7 @@ AbstractView* SuperClusterView::draw()
 
                 }
                 optionsClust.push_back(std::make_pair("Return",m_targetSuperCluster->m_clusterList.size()));
-                unsigned int selectedCluster = menu(optionsClust);
+                unsigned int selectedCluster = menu(optionsClust,m_targetSuperCluster->m_universe->getPlayerPresOfId(m_currPlayerId));
                 if (selectedCluster==m_targetSuperCluster->m_clusterList.size()) {break;}
                 m_targetSuperCluster->genCluster(m_currPlayerId,selectedCluster);
                 break;
@@ -92,7 +94,7 @@ AbstractView* SuperClusterView::draw()
                     if (m_targetSuperCluster->m_clusterList[i] != nullptr)
                     toWrite = toWrite + "Cluster " + std::to_string(i) + "\n";
                 }
-                info(toWrite);
+                TestGUI::info(toWrite);
                 break;
             }
         case 3:

@@ -1,6 +1,8 @@
 #include "ClusterView.h"
 #include "GalaxyView.h"
 #include "TestGUI.h"
+#include "PlayerGUI.h"
+#include "Universe.h"
 #include "Cluster.h"
 #include "SuperClusterView.h"
 #include <iostream>
@@ -22,11 +24,11 @@ ClusterView::~ClusterView()
 
 AbstractView* ClusterView::draw()
 {
-    using namespace TestGUI;
+    using namespace PlayerGUI;
     if (m_targetCluster == nullptr)
     {
         std::string towrite = "Broken ClusterView: Pointed Cluster is nullptr\nReturning.";
-        info(towrite);
+        TestGUI::info(towrite);
         return this;
     }
 
@@ -42,7 +44,7 @@ AbstractView* ClusterView::draw()
         }
         options.push_back(std::make_pair("List Galaxies",2));
         options.push_back(std::make_pair("Return",3));
-        unsigned int response = menu<unsigned int>(options);
+        unsigned int response = menu(options,m_targetCluster->getUniverse()->getPlayerPresOfId(m_currPlayerId));
         switch(response)
         {
         case 0:
@@ -58,7 +60,7 @@ AbstractView* ClusterView::draw()
                     }
                 }
                 optionsGalaxy.push_back(std::make_pair("Return",m_targetCluster->m_galaxyList.size()));
-                unsigned int selectedGalaxy = menu(optionsGalaxy);
+                unsigned int selectedGalaxy = menu(optionsGalaxy,m_targetCluster->getUniverse()->getPlayerPresOfId(m_currPlayerId));
                 if (selectedGalaxy==m_targetCluster->m_galaxyList.size()) {break;}
                 GalaxyView* galaxyView = new GalaxyView(&(*m_targetCluster)[selectedGalaxy],m_currPlayerId,m_playerIDSet);
                 return galaxyView;
@@ -78,7 +80,7 @@ AbstractView* ClusterView::draw()
 
                 }
                 optionsGalaxy.push_back(std::make_pair("Return",m_targetCluster->m_galaxyList.size()));
-                unsigned int selectedGalaxy = menu(optionsGalaxy);
+                unsigned int selectedGalaxy = menu(optionsGalaxy,m_targetCluster->getUniverse()->getPlayerPresOfId(m_currPlayerId));
                 if (selectedGalaxy==m_targetCluster->m_galaxyList.size()) {break;}
                 m_targetCluster->genGalaxy(m_currPlayerId,selectedGalaxy);
                 break;
@@ -91,7 +93,7 @@ AbstractView* ClusterView::draw()
                     if (m_targetCluster->m_galaxyList[i] != nullptr)
                     toWrite = toWrite + "Galaxy " + std::to_string(i) + "\n";
                 }
-                info(toWrite);
+                TestGUI::info(toWrite);
                 break;
             }
         case 3:

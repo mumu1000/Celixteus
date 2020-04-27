@@ -1,6 +1,7 @@
 #include "PlanetView.h"
 #include "Planet.h"
 #include "TestGUI.h"
+#include "PlayerGUI.h"
 #include "SolarSysView.h"
 #include "Universe.h"
 #include <iostream>
@@ -25,17 +26,17 @@ PlanetView::~PlanetView()
 
 AbstractView* PlanetView::draw()
 {
-    using namespace TestGUI;
+    using namespace PlayerGUI;
     if (m_targetPlanet == nullptr)
     {
         std::string towrite = "Broken PlanetView: Pointed Planet is nullptr\nReturning.";
-        info(towrite);
+        TestGUI::info(towrite);
         return nullptr;
     }
     if (!m_playerIDSet || m_targetPlanet->getOwner() != m_targetPlanet->getUniverse()->getPlayerPresOfId(m_currPlayerId))
     {
         std::string towrite = "Cannot Access Planet As This Player\nGoing back one hierarchical level.";
-        info(towrite);
+        TestGUI::info(towrite);
         return new SolarSysView(m_targetPlanet->getSolarSys(),m_currPlayerId,m_playerIDSet);
     }
 
@@ -47,9 +48,10 @@ AbstractView* PlanetView::draw()
 
         options.push_back(std::make_pair("Selection Tools",0));
         options.push_back(std::make_pair("Build",1));
-        options.push_back(std::make_pair("List Tiles",2));
-        options.push_back(std::make_pair("Return",3));
-        unsigned int response = menu(options);
+        options.push_back(std::make_pair("Upgrade",2));
+        options.push_back(std::make_pair("List Tiles",3));
+        options.push_back(std::make_pair("Return",4));
+        unsigned int response = menu(options,m_targetPlanet->getUniverse()->getPlayerPresOfId(m_currPlayerId));
 
         switch(response)
         {
@@ -71,7 +73,7 @@ AbstractView* PlanetView::draw()
                     optionsSelection.push_back(std::make_pair("Clear Selection",m_targetPlanet->size()));
                     optionsSelection.push_back(std::make_pair("Display Selection",m_targetPlanet->size()+1));
                     optionsSelection.push_back(std::make_pair("Return",m_targetPlanet->size()+2));
-                    unsigned int selectedTile = menu(optionsSelection);
+                    unsigned int selectedTile = menu(optionsSelection,m_targetPlanet->getUniverse()->getPlayerPresOfId(m_currPlayerId));
                     if (selectedTile==m_targetPlanet->size()) {m_selection.clear();continue;}
                     if (selectedTile==m_targetPlanet->size()+1) {displaySelected();continue;}
                     if (selectedTile==m_targetPlanet->size()+2) {quitSelection = true;continue;}
@@ -81,23 +83,54 @@ AbstractView* PlanetView::draw()
             }
 
         case 1:
-        //1 : Choisis quoi construire
-        //2 : Appelle build sur toute la selection
-
             {
+                bool selectionWasClear=false;
+                if (m_selection.size()==0)
+                {
+                    selectionWasClear =true;
+                    Tile* temp = askTile(false,true);
+                    if (temp == nullptr){break;}
+                    m_selection.push_back(temp);
+                }
                 std::vector<std::pair<std::string,AbstractTilePlaceable::BuildingType>> optionsConstruction;
                 optionsConstruction.push_back(std::make_pair("Crystal Miner",AbstractTilePlaceable::Miner));
+                optionsConstruction.push_back(std::make_pair("Ore Storage Building",AbstractTilePlaceable::OreStorage));
+                optionsConstruction.push_back(std::make_pair("Energy Collector",AbstractTilePlaceable::EnergyColl));
                 optionsConstruction.push_back(std::make_pair("Return",AbstractTilePlaceable::Nothing));
-                auto buildingSelected = menu(optionsConstruction);
+                auto buildingSelected = menu(optionsConstruction,m_targetPlanet->getUniverse()->getPlayerPresOfId(m_currPlayerId));
                 if (buildingSelected == AbstractTilePlaceable::Nothing){break;}
                 for (unsigned int i = 0; i<m_selection.size();i++)
                 {
                     m_selection[i]->build(buildingSelected);
                 }
+                if (selectionWasClear){m_selection.clear();}
+                break;
+            }
+        case 2:
+            {
+                bool selectionWasClear=false;
+                if (m_selection.size()==0)
+                {
+                    selectionWasClear =true;
+                    Tile* temp = askTile(false,false);
+                    if (temp == nullptr){break;}
+                    m_selection.push_back(temp);
+                }
+                std::tuple<int,int,int> upgradeValues = askUpgrade();
+                for (unsigned int i = 0; i<m_selection.size();i++)
+                {
+                    m_selection[i]->upgrade(upgradeValues);
+                }
+                if (selectionWasClear){m_selection.clear();}
                 break;
             }
 
-        case 2:
+
+
+
+
+
+        case 3:
         {
             std::string toDisplay;
             for (unsigned int i = 0; i<m_targetPlanet->size();i++)
@@ -107,7 +140,7 @@ AbstractView* PlanetView::draw()
             TestGUI::info(toDisplay);
             break;
         }
-        case 3:
+        case 4:
             quit=true;
             break;
         }
@@ -129,7 +162,17 @@ std::string PlanetView::DescTile(Tile* tileToDesc)
     }
     if (tileToDesc->getTileContent()->getType() == AbstractTilePlaceable::Miner)
     {
-        toReturn = "Mining Tile level " + std::to_string(std::get<0>(tileToDesc->getTileContent()->getLevels())) + ":" + std::to_string(std::get<1>(tileToDesc->getTileContent()->getLevels())) + ":" + std::to_string(std::get<2>(tileToDesc->getTileContent()->getLevels()));
+        toReturn = "Crystal Miner Level " + std::to_string(std::get<0>(tileToDesc->getTileContent()->getLevels())) + ":" + std::to_string(std::get<1>(tileToDesc->getTileContent()->getLevels())) + ":" + std::to_string(std::get<2>(tileToDesc->getTileContent()->getLevels()));
+        return toReturn;
+    }
+    if (tileToDesc->getTileContent()->getType() == AbstractTilePlaceable::EnergyColl)
+    {
+        toReturn = "Energy Collector Level " + std::to_string(std::get<0>(tileToDesc->getTileContent()->getLevels())) + ":" + std::to_string(std::get<1>(tileToDesc->getTileContent()->getLevels())) + ":" + std::to_string(std::get<2>(tileToDesc->getTileContent()->getLevels()));
+        return toReturn;
+    }
+    if (tileToDesc->getTileContent()->getType() == AbstractTilePlaceable::OreStorage)
+    {
+        toReturn = "Ore Storage Building Level " + std::to_string(std::get<0>(tileToDesc->getTileContent()->getLevels())) + ":" + std::to_string(std::get<1>(tileToDesc->getTileContent()->getLevels())) + ":" + std::to_string(std::get<2>(tileToDesc->getTileContent()->getLevels()));
         return toReturn;
     }
     toReturn = "Weird Tile (Please Report)";
@@ -165,5 +208,41 @@ void PlanetView::displaySelected()
     }
     TestGUI::info(toDisplay);
 }
+
+Tile* PlanetView::askTile(bool any, bool mustBeFree)
+{
+    std::vector<std::pair<std::string,unsigned int>> tileSelection;
+    for (unsigned int i = 0; i<m_targetPlanet->size();i++)
+    {
+        if (any || (mustBeFree && ((*m_targetPlanet)[i]).getTileContent() == nullptr) || (!mustBeFree && ((*m_targetPlanet)[i]).getTileContent() != nullptr) )
+        {
+            std::string temp1 = "Tile " + std::to_string(i) + " : " + DescTile(&((*m_targetPlanet)[i]));
+            tileSelection.push_back(std::make_pair(temp1,i));
+        }
+    }
+    tileSelection.push_back(std::make_pair("Return",m_targetPlanet->size()));
+    unsigned int selectedTile = PlayerGUI::menu(tileSelection,m_targetPlanet->getUniverse()->getPlayerPresOfId(m_currPlayerId));
+    if (selectedTile==m_targetPlanet->size()) {return nullptr;}
+    return &((*m_targetPlanet)[selectedTile]);
+}
+
+std::tuple<int,int,int> PlanetView::askUpgrade()
+{
+    std::vector<std::pair<std::string,int>> upgradeValues;
+
+    upgradeValues.push_back(std::make_pair("Upgrade Path 1",0));
+    upgradeValues.push_back(std::make_pair("Upgrade Path 2",0));
+    upgradeValues.push_back(std::make_pair("Upgrade Path 3",0));
+    PlayerGUI::sliders(upgradeValues,false,m_targetPlanet->getUniverse()->getPlayerPresOfId(m_currPlayerId));
+    return std::make_tuple(upgradeValues[0].second,upgradeValues[1].second,upgradeValues[2].second);
+}
+
+
+
+
+
+
+
+
 
 
