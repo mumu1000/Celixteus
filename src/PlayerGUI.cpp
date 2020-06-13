@@ -5,15 +5,31 @@
     void PlayerGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool canBeNegative, Player* targetPlayer)
     {
         std::string desc;
+        unsigned int startpos = 0;
         descPlayer(targetPlayer,desc);
-        return TestGUI::sliders(options,canBeNegative,desc);
+        return TestGUI::sliders(options,startpos,canBeNegative,desc);
     }
 
     void PlayerGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool canBeNegative, PlayerPresence* targetPlayerPres)
     {
         std::string desc;
+        unsigned int startpos = 0;
         descPlayerPres(targetPlayerPres,desc);
-        return TestGUI::sliders(options,canBeNegative,desc);
+        return TestGUI::sliders(options,startpos,canBeNegative,desc);
+    }
+
+    void PlayerGUI::sliders(std::vector<std::pair<std::string,int>>& options, unsigned int& startpos, bool canBeNegative, Player* targetPlayer)
+    {
+        std::string desc;
+        descPlayer(targetPlayer,desc);
+        return TestGUI::sliders(options,startpos,canBeNegative,desc);
+    }
+
+    void PlayerGUI::sliders(std::vector<std::pair<std::string,int>>& options, unsigned int& startpos, bool canBeNegative, PlayerPresence* targetPlayerPres)
+    {
+        std::string desc;
+        descPlayerPres(targetPlayerPres,desc);
+        return TestGUI::sliders(options,startpos,canBeNegative,desc);
     }
 
 

@@ -50,7 +50,10 @@ void Existence::update()
 {
     for (unsigned int i = 0; i != m_universeList.size() ;i++ )
     {
-        m_universeList[i]->update();
+        if (m_universeList[i] != nullptr)
+        {
+            m_universeList[i]->update();
+        }
     }
 }
 

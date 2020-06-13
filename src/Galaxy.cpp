@@ -17,7 +17,6 @@ Galaxy::Galaxy(Cluster* cluster,unsigned int galaxySize)
     m_solarSysList.reserve( galaxySize );
     for (unsigned int x = 0; x != galaxySize ; x++)
     {
-        std::cout << "SolarSys numero " << (x+1) << " sur " << galaxySize << " créée\n";
         m_solarSysList.push_back(nullptr);
     }
     std::cout << "Création d'une Galaxy contenant " << (m_solarSysList.size()) << " SolarSys terminée\n";
@@ -45,7 +44,10 @@ void Galaxy::update()
 {
     for (unsigned int i = 0; i != m_solarSysList.size() ;i++ )
     {
-        m_solarSysList[i]->update();
+        if (m_solarSysList[i] != nullptr)
+        {
+            m_solarSysList[i]->update();
+        }
     }
 }
 

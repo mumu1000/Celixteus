@@ -42,7 +42,10 @@ void Cluster::update()
 {
     for (unsigned int i = 0; i != m_galaxyList.size() ;i++ )
     {
-        m_galaxyList[i]->update();
+        if (m_galaxyList[i] != nullptr)
+        {
+            m_galaxyList[i]->update();
+        }
     }
 }
 

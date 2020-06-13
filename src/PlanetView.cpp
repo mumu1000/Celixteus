@@ -59,6 +59,7 @@ AbstractView* PlanetView::draw()
         case 0:
             {
                 bool quitSelection = false;
+                unsigned int lastOpt = 0;
                 do
                 {
                     std::vector<std::pair<std::string,unsigned int>> optionsSelection;
@@ -66,6 +67,7 @@ AbstractView* PlanetView::draw()
                     {
                         if (!isSelected(i))
                         {
+
                             std::string temp1 = "Tile " + std::to_string(i) + " : " + DescTile(&((*m_targetPlanet)[i]));
                             optionsSelection.push_back(std::make_pair(temp1,i));
                         }
@@ -73,11 +75,12 @@ AbstractView* PlanetView::draw()
                     optionsSelection.push_back(std::make_pair("Clear Selection",m_targetPlanet->size()));
                     optionsSelection.push_back(std::make_pair("Display Selection",m_targetPlanet->size()+1));
                     optionsSelection.push_back(std::make_pair("Return",m_targetPlanet->size()+2));
-                    unsigned int selectedTile = menu(optionsSelection,m_targetPlanet->getUniverse()->getPlayerPresOfId(m_currPlayerId));
-                    if (selectedTile==m_targetPlanet->size()) {m_selection.clear();continue;}
-                    if (selectedTile==m_targetPlanet->size()+1) {displaySelected();continue;}
-                    if (selectedTile==m_targetPlanet->size()+2) {quitSelection = true;continue;}
-                    if ( !isSelected(selectedTile)){m_selection.push_back(&((*m_targetPlanet)[selectedTile]));}
+                    unsigned int selectedPlanet = menu(optionsSelection,lastOpt,m_targetPlanet->getUniverse()->getPlayerPresOfId(m_currPlayerId));
+                    if (selectedPlanet==m_targetPlanet->size()) {m_selection.clear();continue;}
+                    if (selectedPlanet==m_targetPlanet->size()+1) {displaySelected();continue;}
+                    if (selectedPlanet==m_targetPlanet->size()+2) {quitSelection = true;continue;}
+                    if ( !isSelected(selectedPlanet)){m_selection.push_back(&((*m_targetPlanet)[selectedPlanet]));}
+                    selectedPlanet--;
                 } while (!quitSelection);
                 break;
             }

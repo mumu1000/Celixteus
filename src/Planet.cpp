@@ -42,7 +42,10 @@ void Planet::update()
 {
     for (unsigned int i = 0; i != m_tileList.size() ;i++ )
     {
-        m_tileList[i]->update();
+        if (m_tileList[i] != nullptr)
+        {
+            m_tileList[i]->update();
+        }
     }
 }
 

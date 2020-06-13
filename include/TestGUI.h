@@ -25,12 +25,15 @@ namespace TestGUI
     unsigned int sliderHorPadd = 2;
     ALLEGRO_EVENT waitInput();
     int waitKeyboardInput();
+
+    void* startMusic(void* args);
     unsigned int DISPLAY_WIDTH = 1920;
     unsigned int DISPLAY_HEIGHT = 1080;
 
     void sliders(std::vector<std::pair<std::string,int>>& options, bool canBeNegative);
     void sliders(std::vector<std::pair<std::string,int>>& options, bool canBeNegative, const std::string& headerStr);
-
+    void sliders(std::vector<std::pair<std::string,int>>& options, unsigned int& startpos, bool canBeNegative);
+    void sliders(std::vector<std::pair<std::string,int>>& options, unsigned int& startpos, bool canBeNegative, const std::string& headerStr);
 
     template<typename T>
     T& menu(std::vector<std::pair<std::string,T>>& options);
@@ -38,17 +41,38 @@ namespace TestGUI
     template<typename T>
     T& menu(std::vector<std::pair<std::string,T>>& options, const std::string& headerStr);
 
+    template<typename T>
+    T& menu(std::vector<std::pair<std::string,T>>& options, unsigned int& startpos);
+
+    template<typename T>
+    T& menu(std::vector<std::pair<std::string,T>>& options, unsigned int& startpos, const std::string& headerStr);
+
 }
 
 template<typename T>
 T& TestGUI::menu(std::vector<std::pair<std::string,T>>& options)
 {
     const std::string emptyString = "";
-    return TestGUI::menu(options,emptyString);
+    unsigned int startpos = 0;
+    return TestGUI::menu(options,startpos,emptyString);
 }
 
 template<typename T>
 T& TestGUI::menu(std::vector<std::pair<std::string,T>>& options, const std::string& headerStr)
+{
+    unsigned int startpos = 0;
+    return TestGUI::menu(options,startpos,headerStr);
+}
+
+template<typename T>
+T& TestGUI::menu(std::vector<std::pair<std::string,T>>& options, unsigned int& startpos)
+{
+    const std::string emptyString = "";
+    return TestGUI::menu(options,startpos,emptyString);
+}
+
+template<typename T>
+T& TestGUI::menu(std::vector<std::pair<std::string,T>>& options, unsigned int& startpos, const std::string& headerStr)
 {
     using namespace TestGUI;
     unsigned int menuHeigth = DISPLAY_HEIGHT;
@@ -83,7 +107,8 @@ T& TestGUI::menu(std::vector<std::pair<std::string,T>>& options, const std::stri
     menuHeigth -= footerHeight;
     bool validate = false;
     ALLEGRO_EVENT inputEvent;
-    unsigned int current = 0;
+    unsigned int& current = startpos;
+    current = startpos-startpos*(!(startpos<options.size()));
     const unsigned int maxperscreen = (menuHeigth) / (fontHeight + linePadding);
 
     do {

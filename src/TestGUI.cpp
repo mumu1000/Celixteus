@@ -4,16 +4,36 @@
 #include "allegro5/allegro_primitives.h"
 #include "allegro5/allegro_font.h"
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <iostream>
 #include "AbstractView.h"
 
 
 
+void* TestGUI::startMusic(void* args)
+{
+    ALLEGRO_VOICE *voice = al_create_voice( 44100,
+                                            ALLEGRO_AUDIO_DEPTH_INT16,
+                                            ALLEGRO_CHANNEL_CONF_2);
 
+    ALLEGRO_MIXER *mixer = al_create_mixer( 44100,
+                                            ALLEGRO_AUDIO_DEPTH_FLOAT32,
+                                            ALLEGRO_CHANNEL_CONF_2);
+    al_attach_mixer_to_voice(mixer, voice);
+    ALLEGRO_AUDIO_STREAM *stream = al_load_audio_stream("./Into_The_Darkness_by_nyoko.wav",4,1024 );
+    std::cout << al_get_audio_stream_length_secs(stream) << "\n";
+    al_set_audio_stream_loop_secs(stream,0.0,al_get_audio_stream_length_secs(stream));
+    al_set_audio_stream_playmode(stream,ALLEGRO_PLAYMODE_LOOP);
+    al_attach_audio_stream_to_mixer(stream,mixer);
+    al_set_audio_stream_playing(stream, true);
+    al_set_voice_playing(voice, true);
+    return nullptr;
+}
 
 bool TestGUI::initialize()
 {
-    if (al_init() && al_init_primitives_addon() && al_init_font_addon() && al_init_ttf_addon())
+    if (al_init() && al_init_primitives_addon() && al_init_font_addon() && al_init_ttf_addon() && al_init_acodec_addon())
     {
         std::cout<<"It Works\n";
     }else
@@ -31,8 +51,18 @@ bool TestGUI::initialize()
         std::cerr<<"Mouse Installation Failed\n";
         exit(0x50000003);
     }
+    if(!al_install_audio())
+    {
+        std::cerr<<"Audio Add-on Installation Failed\n";
+        exit(0x50000004);
+    }
+
+
+    al_run_detached_thread(TestGUI::startMusic, nullptr);
+
+
     using namespace TestGUI;
-    basicFont = al_load_ttf_font("./FFF_Tusj.ttf",20,0);
+    basicFont = al_load_ttf_font("./Lato-Bold.ttf",20,0);
     fontHeight = al_get_font_line_height(basicFont);
     basicTextColor = al_map_rgb(255,255,255);
     mainEventQueue = al_create_event_queue();
@@ -74,12 +104,14 @@ bool TestGUI::shutDown()
     //al_ungrab_mouse();
     al_uninstall_keyboard();
     al_uninstall_mouse();
+    al_uninstall_audio();
     al_destroy_display(alConcreteDisplay);
     al_destroy_font(basicFont);
     al_destroy_event_queue(mainEventQueue);
     al_set_target_bitmap(nullptr);
     al_shutdown_primitives_addon();
     al_shutdown_font_addon();
+    al_shutdown_ttf_addon();
     delete keyConfig;
     return true;
 }
@@ -116,10 +148,23 @@ void TestGUI::info(std::string& toDisplay)
 void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool canBeNegative)
 {
     const std::string emptyString = "";
-    return TestGUI::sliders(options,canBeNegative,emptyString);
+    unsigned int startpos = 0;
+    return TestGUI::sliders(options,startpos,canBeNegative,emptyString);
 }
 
 void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool canBeNegative, const std::string& headerStr)
+{
+    unsigned int startpos = 0;
+    return TestGUI::sliders(options,startpos,canBeNegative,headerStr);
+}
+
+void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, unsigned int& startpos, bool canBeNegative)
+{
+    const std::string emptyString = "";
+    return TestGUI::sliders(options,startpos,canBeNegative,emptyString);
+}
+
+void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, unsigned int& startpos, bool canBeNegative, const std::string& headerStr)
 {
     using namespace TestGUI;
     unsigned int menuHeigth = DISPLAY_HEIGHT;
@@ -153,7 +198,8 @@ void TestGUI::sliders(std::vector<std::pair<std::string,int>>& options, bool can
     menuHeigth -= footerHeight;
     bool validate = false;
     ALLEGRO_EVENT inputEvent;
-    unsigned int current = 0;
+    unsigned int& current = startpos;
+    current = startpos-startpos*(!(startpos<options.size()));
     const unsigned int maxperscreen = menuHeigth / (fontHeight + linePadding) -1; //-1 to fit the validate option
     do {
         unsigned int lbegin = current - (current%maxperscreen);

@@ -2,6 +2,7 @@
 #define UNIVERSE_H
 
 #include <vector>
+#include <atomic>
 class PlayerPresence;
 class SuperCluster;
 class UniverseView;
@@ -18,16 +19,19 @@ class Universe
         PlayerPresence* getPlayerPresOfId(unsigned int id);
         SuperCluster& operator[](unsigned int i);
         unsigned int size(){return m_superClusterList.size();};
-        unsigned long long getUniverseTick() const {return m_universeTick;};
-        void setUniverseTick(unsigned long long newTickVal){m_universeTick = newTickVal;};
-        void increaseUniverseTick(unsigned long long increment){m_universeTick += increment;};
+        unsigned long long getUniverseTick() const {return universeTick;};
         Existence* getExistence(){return m_existence;};
+
 
     protected:
         std::vector<SuperCluster*> m_superClusterList;
         std::vector<PlayerPresence*> m_playerPresenceList;
         Existence* m_existence;
-        unsigned long long m_universeTick;
+
+    private:
+        static void startTimer();
+        static std::atomic<unsigned long long> universeTick;
+        static bool clockStarted;
 
     private:
 };

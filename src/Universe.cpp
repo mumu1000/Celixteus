@@ -4,19 +4,52 @@
 #include "Existence.h"
 #include "SuperCluster.h"
 #include <iostream>
-
+#include <chrono>
+#include "allegro5/allegro.h"
 //THERE IS STILL SOME SHITTY CONSTANT HERE COMON
+bool Universe::clockStarted = false;
 
+std::atomic<unsigned long long> Universe::universeTick{0};
+
+void Universe::startTimer()
+{
+    if (!clockStarted)
+    {
+        clockStarted = true;
+
+        std::cout << "Galaxy Global Clock Started\n";
+        al_run_detached_thread(
+                                [](void* clock) -> void*
+                                {
+                                    std::atomic<unsigned long long>* generalClock = (std::atomic<unsigned long long>*)clock;
+                                    while(true)
+                                    {
+                                        (*generalClock) = std::chrono::system_clock::now().time_since_epoch().count() * std::chrono::system_clock::period::num / std::chrono::system_clock::period::den;
+                                        al_rest(1.0);
+                                        std::cout << "clock updated to " << (*generalClock) << "\n";
+                                    }
+                                    return nullptr;
+                                },
+                                &universeTick
+                               );
+    }
+}
 Universe::Universe(Existence* existence)
 {
     m_existence = existence;
-    m_universeTick = 0;
+    if (!clockStarted)
+    {
+        startTimer();
+    }
 }
 
 Universe::Universe(Existence* existence, unsigned int universeSize)
 {
     m_existence = existence;
-    m_universeTick = 0;
+    if (!clockStarted)
+    {
+        startTimer();
+    }
     m_superClusterList.reserve( universeSize );
     for (unsigned int x = 0; x != universeSize ; x++)
     {
@@ -59,7 +92,10 @@ void Universe::update()
 {
     for (unsigned int i = 0; i != m_superClusterList.size() ;i++ )
     {
-        m_superClusterList[i]->update();
+        if (m_superClusterList[i] != nullptr)
+        {
+            m_superClusterList[i]->update();
+        }
     }
 }
 

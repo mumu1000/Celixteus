@@ -41,7 +41,6 @@ AbstractView* UniverseView::draw()
         if (m_playerIDSet)
         {
             options.push_back(std::make_pair("Generate SuperCluster",1));
-            options.push_back(std::make_pair("Take Time Step",4));
         }
         options.push_back(std::make_pair("List SuperClusters",2));
         options.push_back(std::make_pair("Return",3));
@@ -99,9 +98,6 @@ AbstractView* UniverseView::draw()
             }
         case 3:
             quit=true;
-            break;
-        case 4:
-            m_targetUniverse->increaseUniverseTick(1);
             break;
         }
     }while (!quit);

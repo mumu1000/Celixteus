@@ -38,7 +38,10 @@ void SuperCluster::update()
 {
     for (unsigned int i = 0; i != m_clusterList.size() ;i++ )
     {
-        m_clusterList[i]->update();
+        if (m_clusterList[i] != nullptr)
+        {
+            m_clusterList[i]->update();
+        }
     }
 }
 

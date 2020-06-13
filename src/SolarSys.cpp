@@ -15,7 +15,6 @@ SolarSys::SolarSys(Galaxy* galaxy, unsigned int solarSysSize)
     m_planetList.reserve( solarSysSize );
     for (unsigned int x = 0; x != solarSysSize ; x++)
     {
-        std::cout << "Planet numero " << (x+1) << " sur " << solarSysSize << " créée\n";
         m_planetList.push_back(nullptr);
     }
     std::cout << "Création d'un SolarSys contenant " << (m_planetList.size()) << " Planet terminée\n";
@@ -43,7 +42,10 @@ void SolarSys::update()
 {
     for (unsigned int i = 0; i != m_planetList.size() ;i++ )
     {
-        m_planetList[i]->update();
+        if (m_planetList[i] != nullptr)
+        {
+            m_planetList[i]->update();
+        }
     }
 }
 
