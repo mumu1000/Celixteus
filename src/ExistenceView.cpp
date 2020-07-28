@@ -74,12 +74,15 @@ AbstractView* ExistenceView::draw()
                 std::vector<std::pair<std::string,unsigned int>> optionsPlayer;
                 for (unsigned int i = 0; i<m_targetExistence->m_playerList.size();i++)
                 {
+                    std::cout << "DEBUG\n";
                     const std::string temp1 = "Player ";
                     std::string temp2 = std::to_string(i);
                     optionsPlayer.push_back(std::make_pair(temp1+temp2,i));
                 }
                 optionsPlayer.push_back(std::make_pair("Return",m_targetExistence->m_playerList.size()));
-                unsigned int selectedPlayer = TestGUI::menu(optionsPlayer,0);
+                    std::cout << "DEBUGE\n";
+                unsigned int selectedPlayer = 0;
+                selectedPlayer = TestGUI::menu(optionsPlayer,selectedPlayer);
                 if (selectedPlayer!=m_targetExistence->m_playerList.size())
                     {
                         setCurrPlayerID(selectedPlayer);

@@ -7,6 +7,7 @@ class Galaxy;
 class ClusterView;
 class SuperCluster;
 class Universe;
+class PlayerPresence;
 class Cluster
 {
     public:
@@ -15,7 +16,7 @@ class Cluster
         Cluster(SuperCluster* superCluster, unsigned int clusterSize);
         virtual ~Cluster();
         void genGalaxy(unsigned int generatingPlayerId, unsigned int galaxyId);  //IDEMPOTENT FUNCTION, DOES NOTHING IF TARGET IS ALREADY GENERATED (aka vector at index not nullptr)
-        void update();
+        void update(PlayerPresence* updatingPlayer);
         Galaxy& operator[](unsigned int i);
         unsigned int size(){return m_galaxyList.size();};
         Universe* getUniverse();

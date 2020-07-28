@@ -46,13 +46,13 @@ Player* Existence::getPlayerAtId(unsigned int id)
 }
 
 
-void Existence::update()
+void Existence::update(unsigned int PlayerId)
 {
     for (unsigned int i = 0; i != m_universeList.size() ;i++ )
     {
         if (m_universeList[i] != nullptr)
         {
-            m_universeList[i]->update();
+            m_universeList[i]->update(PlayerId);
         }
     }
 }

@@ -40,13 +40,13 @@ Universe* Galaxy::getUniverse()
     return m_cluster->getUniverse();
 }
 
-void Galaxy::update()
+void Galaxy::update(PlayerPresence* updatingPlayer)
 {
     for (unsigned int i = 0; i != m_solarSysList.size() ;i++ )
     {
         if (m_solarSysList[i] != nullptr)
         {
-            m_solarSysList[i]->update();
+            m_solarSysList[i]->update(updatingPlayer);
         }
     }
 }

@@ -22,7 +22,6 @@ void* TestGUI::startMusic(void* args)
                                             ALLEGRO_CHANNEL_CONF_2);
     al_attach_mixer_to_voice(mixer, voice);
     ALLEGRO_AUDIO_STREAM *stream = al_load_audio_stream("./Into_The_Darkness_by_nyoko.wav",4,1024 );
-    std::cout << al_get_audio_stream_length_secs(stream) << "\n";
     al_set_audio_stream_loop_secs(stream,0.0,al_get_audio_stream_length_secs(stream));
     al_set_audio_stream_playmode(stream,ALLEGRO_PLAYMODE_LOOP);
     al_attach_audio_stream_to_mixer(stream,mixer);
@@ -57,12 +56,12 @@ bool TestGUI::initialize()
         exit(0x50000004);
     }
 
-
     al_run_detached_thread(TestGUI::startMusic, nullptr);
 
 
     using namespace TestGUI;
     basicFont = al_load_ttf_font("./Lato-Bold.ttf",20,0);
+
     fontHeight = al_get_font_line_height(basicFont);
     basicTextColor = al_map_rgb(255,255,255);
     mainEventQueue = al_create_event_queue();
@@ -92,7 +91,6 @@ bool TestGUI::initialize()
         al_flip_display();
         itr->second = waitKeyboardInput();
         std::cout << itr->second << "\n";
-        std::cout << "on to the next\n";
     }
 
     return true;

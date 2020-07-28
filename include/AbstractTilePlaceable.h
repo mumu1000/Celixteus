@@ -11,7 +11,9 @@ class AbstractTilePlaceable
         enum BuildingType { Nothing ,Miner, EnergyColl, OreStorage}; //"Nothing" is here to implement a value for the no action statement. It should not name a real building type.
         AbstractTilePlaceable(Tile* slot);
         virtual ~AbstractTilePlaceable();
-        virtual void update()=0;
+        virtual void update(PlayerPresence* updatingPlayer)=0;
+        virtual void collect(PlayerPresence* collectingPlayer){};
+        virtual std::string description()=0;
         BuildingType getType(){return m_type;};
         std::tuple<int,int,int> getLevels(){return m_levels;};
         virtual bool upgrade(std::tuple<int,int,int> levels)=0;

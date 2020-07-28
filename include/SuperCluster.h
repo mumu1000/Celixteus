@@ -4,6 +4,7 @@
 class Cluster;
 class SuperClusterView;
 class Universe;
+class PlayerPresence;
 class SuperCluster
 {
     public:
@@ -12,7 +13,7 @@ class SuperCluster
         SuperCluster(Universe* universe, unsigned int SuperClusterSize);
         void genCluster(unsigned int generatingPlayerId, unsigned int clusterId);  //IDEMPOTENT FUNCTION, DOES NOTHING IF TARGET IS ALREADY GENERATED (aka vector at index not nullptr)
         virtual ~SuperCluster();
-        void update();
+        void update(PlayerPresence* updatingPlayer);
         Cluster& operator[](unsigned int i);
         unsigned int size(){return m_clusterList.size();};
         Universe* getUniverse(){return m_universe;};

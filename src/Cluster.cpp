@@ -38,13 +38,13 @@ Universe* Cluster::getUniverse()
 {
     return m_superCluster->getUniverse();
 }
-void Cluster::update()
+void Cluster::update(PlayerPresence* updatingPlayer)
 {
     for (unsigned int i = 0; i != m_galaxyList.size() ;i++ )
     {
         if (m_galaxyList[i] != nullptr)
         {
-            m_galaxyList[i]->update();
+            m_galaxyList[i]->update(updatingPlayer);
         }
     }
 }

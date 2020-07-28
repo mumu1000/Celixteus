@@ -15,7 +15,7 @@ class Universe
         Universe(Existence* existence, unsigned int universeSize);
         virtual ~Universe();
         void genSuperCluster(unsigned int generatingPlayerId, unsigned int sClusterId);  //IDEMPOTENT FUNCTION, DOES NOTHING IF TARGET IS ALREADY GENERATED (aka vector at index not nullptr)
-        void update();
+        void update(unsigned int updatingPlayerId);
         PlayerPresence* getPlayerPresOfId(unsigned int id);
         SuperCluster& operator[](unsigned int i);
         unsigned int size(){return m_superClusterList.size();};

@@ -17,12 +17,20 @@ TileEnergyColl::~TileEnergyColl()
 }
 
 
-void TileEnergyColl::update()
+void TileEnergyColl::update(PlayerPresence* updatingPlayer)
 {
-    if (m_lastTickUpdated >= getUniverseTick()) {return;}
-    //UPDATE ACTIONS HERE
-    m_lastTickUpdated = getUniverseTick();
+    if (updatingPlayer == getOwner())
+    {
+        unsigned long long currtick = getUniverseTick();
+        if (m_lastTickUpdated >= currtick) {return;}
+        //UPDATE ACTIONS HERE
+        unsigned long long tickDiff = currtick - m_lastTickUpdated;
+        m_enerStored = m_enerStored + m_enerProduction*tickDiff;
+        if (m_enerStored > m_maxEnerStorage) {m_enerStored = m_maxEnerStorage;}
 
+        //END OF UPDATE ACTIONS
+        m_lastTickUpdated = currtick;
+    }
 }
 
 
@@ -57,3 +65,17 @@ bool TileEnergyColl::isAffordable(std::tuple<int,int,int> levels)
     }
     return false;
 }
+
+std::string TileEnergyColl::description()
+{
+    std::string toReturn( "Energy Collector Level " + std::to_string(std::get<0>(m_levels)) +":"+
+                                                      std::to_string(std::get<1>(m_levels)) +":"+
+                                                      std::to_string(std::get<2>(m_levels)) +"  "+
+                                                      std::to_string(m_enerStored)         +"/"+
+                                                      std::to_string(m_maxEnerStorage)     +" Energy Stored (+ "+
+                                                      std::to_string(m_enerProduction)     + " / Tick)" );
+    return toReturn;
+}
+
+
+

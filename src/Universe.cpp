@@ -17,7 +17,7 @@ void Universe::startTimer()
     {
         clockStarted = true;
 
-        std::cout << "Galaxy Global Clock Started\n";
+        std::cout << "Universe Global Clock Started\n";
         al_run_detached_thread(
                                 [](void* clock) -> void*
                                 {
@@ -26,7 +26,7 @@ void Universe::startTimer()
                                     {
                                         (*generalClock) = std::chrono::system_clock::now().time_since_epoch().count() * std::chrono::system_clock::period::num / std::chrono::system_clock::period::den;
                                         al_rest(1.0);
-                                        std::cout << "clock updated to " << (*generalClock) << "\n";
+                                        std::cout << "Clock updated to " << (*generalClock) << "\n";
                                     }
                                     return nullptr;
                                 },
@@ -74,9 +74,9 @@ void Universe::genSuperCluster(unsigned int generatingPlayerId, unsigned int sCl
 
 PlayerPresence* Universe::getPlayerPresOfId(unsigned int id) //Player Presence registration occurs only when a call to this function is made with an unregistered player.
 {
-    if (id>=m_existence->size()) {return nullptr;}
+    if (id>=m_existence->playerListSize()) {return nullptr;}
 
-    unsigned int diff = m_existence->size() - m_playerPresenceList.size();
+    unsigned int diff = m_existence->playerListSize() - m_playerPresenceList.size();
     m_playerPresenceList.reserve(diff);
     for (unsigned int i = 0; i<diff;i++) {m_playerPresenceList.push_back(nullptr);}
     if (m_playerPresenceList[id] == nullptr)
@@ -88,13 +88,13 @@ PlayerPresence* Universe::getPlayerPresOfId(unsigned int id) //Player Presence r
 }
 
 
-void Universe::update()
+void Universe::update(unsigned int updatingPlayerId)
 {
     for (unsigned int i = 0; i != m_superClusterList.size() ;i++ )
     {
         if (m_superClusterList[i] != nullptr)
         {
-            m_superClusterList[i]->update();
+            m_superClusterList[i]->update(getPlayerPresOfId(updatingPlayerId));
         }
     }
 }

@@ -14,7 +14,7 @@ class Tile
         Tile(Planet* planet, unsigned int xPos, unsigned int yPos);
         virtual ~Tile();
 
-        void update();
+        void update(PlayerPresence* updatingPlayer);
         bool build(AbstractTilePlaceable::BuildingType type);
         bool upgrade(std::tuple<int,int,int> levels);
 

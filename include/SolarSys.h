@@ -6,6 +6,7 @@ class Planet;
 class SolarSysView;
 class Galaxy;
 class Universe;
+class PlayerPresence;
 class SolarSys
 {
     public:
@@ -14,7 +15,7 @@ class SolarSys
         SolarSys(Galaxy* galaxy, unsigned int solarSysSize);
         virtual ~SolarSys();
         void genPlanet(unsigned int generatingPlayerId, unsigned int planetId);  //IDEMPOTENT FUNCTION, DOES NOTHING IF TARGET IS ALREADY GENERATED (aka vector at index not nullptr)
-        void update();
+        void update(PlayerPresence* updatingPlayer);
         Universe* getUniverse();
         Planet& operator[](unsigned int i);
         unsigned int size(){return m_planetList.size();};

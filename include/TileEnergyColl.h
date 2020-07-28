@@ -9,9 +9,9 @@ class TileEnergyColl : public AbstractTilePlaceable
     public:
         TileEnergyColl(Tile* slot);
         virtual ~TileEnergyColl();
-        virtual void update();
+        virtual void update(PlayerPresence* updatingPlayer);
         bool upgrade(std::tuple<int,int,int> levels);
-
+        virtual std::string description();
 
 
 
@@ -24,9 +24,9 @@ class TileEnergyColl : public AbstractTilePlaceable
 
     protected:
 
-        unsigned long long m_crystProduction;
-        unsigned long long m_crystStored;
-        unsigned long long m_maxCrystStorage;
+        unsigned long long m_enerProduction=0;
+        unsigned long long m_enerStored=0;
+        unsigned long long m_maxEnerStorage=0;
 
     private:
 };

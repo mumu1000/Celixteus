@@ -42,10 +42,10 @@ bool Tile::upgrade(std::tuple<int,int,int> levels)
     return m_tileContent->upgrade(levels);
 }
 
-void Tile::update()
+void Tile::update(PlayerPresence* updatingPlayer)
 {
     if (m_tileContent != nullptr)
     {
-        m_tileContent->update();
+        m_tileContent->update(updatingPlayer);
     }
 }

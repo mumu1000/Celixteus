@@ -38,13 +38,13 @@ Universe* SolarSys::getUniverse()
     return m_galaxy->getUniverse();
 }
 
-void SolarSys::update()
+void SolarSys::update(PlayerPresence* updatingPlayer)
 {
     for (unsigned int i = 0; i != m_planetList.size() ;i++ )
     {
         if (m_planetList[i] != nullptr)
         {
-            m_planetList[i]->update();
+            m_planetList[i]->update(updatingPlayer);
         }
     }
 }

@@ -15,7 +15,7 @@ class Planet
         Planet(PlayerPresence* owner, SolarSys* solarSys);
         Planet(PlayerPresence* owner, SolarSys* solarSys, unsigned int planetSize);
         virtual ~Planet();
-        void update();
+        void update(PlayerPresence* updatingPlayer);
         Universe* getUniverse();
         Tile& operator[](unsigned int i);
         unsigned int size(){return m_tileList.size();};

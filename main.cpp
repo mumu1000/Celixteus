@@ -29,7 +29,6 @@ int main(int argc, char **argv)
 
     TestGUI::initialize();
 
-
     std::vector<std::pair<std::string,int>> options;
     for (int i = 0; i<=1000; i++)
     {
@@ -49,8 +48,9 @@ int main(int argc, char **argv)
     testExistence[0][0][0][0][0].genPlanet(player,0);
 
 
-    PlanetView* testPlanetView = new PlanetView(&(testExistence[0][0][0][0][0][0]),player,true);
-    TestGUI::enterGUI(testPlanetView);
+    //PlanetView* testPlanetView = new PlanetView(&(testExistence[0][0][0][0][0][0]),player,true);
+    ExistenceView* testExistenceview = new ExistenceView(&testExistence,player,true);
+    TestGUI::enterGUI(testExistenceview);
 
     TestGUI::shutDown();
 

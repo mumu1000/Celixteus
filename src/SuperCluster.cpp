@@ -34,13 +34,13 @@ void SuperCluster::genCluster(unsigned int generatingPlayerId, unsigned int clus
     }
 }
 
-void SuperCluster::update()
+void SuperCluster::update(PlayerPresence* updatingPlayer)
 {
     for (unsigned int i = 0; i != m_clusterList.size() ;i++ )
     {
         if (m_clusterList[i] != nullptr)
         {
-            m_clusterList[i]->update();
+            m_clusterList[i]->update(updatingPlayer);
         }
     }
 }

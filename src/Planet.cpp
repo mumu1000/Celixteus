@@ -38,13 +38,13 @@ Universe* Planet::getUniverse()
     return m_solarSys->getUniverse();
 }
 
-void Planet::update()
+void Planet::update(PlayerPresence* updatingPlayer)
 {
     for (unsigned int i = 0; i != m_tileList.size() ;i++ )
     {
         if (m_tileList[i] != nullptr)
         {
-            m_tileList[i]->update();
+            m_tileList[i]->update(updatingPlayer);
         }
     }
 }
